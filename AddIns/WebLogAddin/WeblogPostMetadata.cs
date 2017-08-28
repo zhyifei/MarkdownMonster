@@ -182,7 +182,7 @@ namespace WeblogAddin
         
 
 
-        static readonly Regex YamlExtractionRegex = new Regex("^---[\n,\r\n].*?^---[\n,\r\n]", RegexOptions.Singleline | RegexOptions.Multiline);
+        static readonly Regex YamlExtractionRegex = new Regex("^---[\n,\r\n].*?^(---[\n,\r\n]|...[\n,\r\n])", RegexOptions.Singleline | RegexOptions.Multiline);
 		
         /// <summary>
         /// Strips the Markdown Meta data from the message and populates
@@ -220,7 +220,9 @@ namespace WeblogAddin
             if (string.IsNullOrEmpty(extractedYaml))
                 return meta;
             
-            var yaml = StringUtils.ExtractString(markdown, "---", "\n---", returnDelimiters: false).Trim();            
+            var yaml = StringUtils.ExtractString(markdown,"---", "\n---", returnDelimiters: false).Trim();    
+            if (string.IsNullOrEmpty(yaml))
+                yaml = StringUtils.ExtractString(markdown, "---", "\n...", returnDelimiters: false).Trim();
             var input = new StringReader(yaml);
 
             var deserializer = new DeserializerBuilder()
@@ -338,6 +340,8 @@ namespace WeblogAddin
             if (lines.Length > 2 && lines[0] == "---")
             {
                 var block = mmFileUtils.ExtractString(meta.MarkdownBody, "---", "\n---", returnDelimiters: true);
+                if(string.IsNullOrEmpty(block))
+                    block = mmFileUtils.ExtractString(meta.MarkdownBody, "---", "\n...", returnDelimiters: true);
                 if (!string.IsNullOrEmpty(block))
                 {
                     meta = WeblogPostMetadata.GetPostYamlConfigFromMarkdown(markdown, post, weblogInfo);
