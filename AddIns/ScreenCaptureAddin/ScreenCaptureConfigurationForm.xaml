@@ -10,7 +10,7 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
         mc:Ignorable="d"        
-        Title="Markdown Monster Screen Capture Configuration" 
+        Title="截屏配置" 
         TitleCharacterCasing="Normal"
         Icon="MarkdownMonster_Icon_128.png"  
         WindowStyle="SingleBorderWindow" ResizeMode="NoResize"
@@ -29,14 +29,14 @@
                Margin="5,30,5,10" Width="120"/>
         
         <StackPanel Grid.Column="1" Margin="20" >
-            <Label>Capture Mode</Label>
+            <Label>截屏模式</Label>
             <ComboBox  
                 ItemsSource="{Binding CaptureModeList}"
                 DisplayMemberPath="Value"
                 SelectedValuePath="Key"
                 SelectedValue="{Binding Configuration.CaptureMode}"></ComboBox>
 
-            <Label Margin="0,8,0,0">Image Editor Path</Label>
+            <Label Margin="0,8,0,0">图片编辑器路径</Label>
             <TextBox Text="{Binding Configuration.ImageEditorPath}"></TextBox>
 
 
@@ -46,30 +46,30 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel>
-                    <Label>Color Depth</Label>
+                    <Label>颜色深度</Label>
                     <TextBox Text="{Binding Configuration.ColorDepth}" Width="85" HorizontalAlignment="Left"  />
                 </StackPanel>
                 <StackPanel Grid.Column="1"  HorizontalAlignment="Right">
-                    <Label>Capture Delay</Label>
+                    <Label>截屏延迟</Label>
                     <TextBox Text="{Binding Configuration.CaptureDelaySeconds}" Width="85" HorizontalAlignment="Right" Margin="0,0,5,0"/>
                 </StackPanel>
 
             </Grid>
 
-            <CheckBox Margin="0,12,0,0" IsChecked="{Binding Configuration.IncludeCursor}">Include Cursor</CheckBox>
-            <CheckBox  Margin="0,12,0,0"  IsChecked="{Binding Configuration.ShowPreviewWindow}">Show Preview Window</CheckBox>
-            <CheckBox  Margin="0,12,0,0"  IsChecked="{Binding Configuration.AlwaysShowCaptureOptions}">Always show this Window when capturing</CheckBox>
-            <CheckBox  Margin="0,12,0,0"  IsChecked="{Binding Configuration.UseSnagItForImageCapture}">Use SnagIt when available</CheckBox>
+            <CheckBox Margin="0,12,0,0" IsChecked="{Binding Configuration.IncludeCursor}">包括光标</CheckBox>
+            <CheckBox  Margin="0,12,0,0"  IsChecked="{Binding Configuration.ShowPreviewWindow}">显示预览窗口</CheckBox>
+            <CheckBox  Margin="0,12,0,0"  IsChecked="{Binding Configuration.AlwaysShowCaptureOptions}">截屏时总是显示该窗口</CheckBox>
+            <CheckBox  Margin="0,12,0,0"  IsChecked="{Binding Configuration.UseSnagItForImageCapture}">使用SnapIt功能(可用时)</CheckBox>
             <TextBlock FontSize="9.6" Margin="20,0,10,0"
                        TextWrapping="Wrap" 
-                       Text="Note: If you're using SnagIt 13 make sure you use v13.1.1 or later. Older versions of SnagIt 13 did not work for automated capture." />
+                       Text="注意: 如果您使用的是SnagIt 13，请确保您使用v13.1.1或更高版本。 老版本的SnagIt 13不能用于自动捕获。" />
 
             <StackPanel Orientation="Horizontal">
                 <Button Name="SubmitButton" Margin="0,20" Height="40" Width="155" HorizontalAlignment="Left" 
                         Click="ButtonSave_Click" IsDefault="True" >
                 <StackPanel Orientation="Horizontal">
                     <fa:FontAwesome Icon="Check" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" Foreground="#FF0E7E28" FontSize="20" />
-                    <TextBlock Name="SubmitButtonText" Margin="10,0,0,0" FontSize="14">Save Settings</TextBlock>
+                        <TextBlock Name="SubmitButtonText" Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center">保存设置</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -77,7 +77,7 @@
                         Click="ButtonCancel_Click" IsCancel="True">
                 <StackPanel Orientation="Horizontal">
                     <fa:FontAwesome Icon="Remove"  FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" Foreground="FireBrick" FontSize="20" />
-                    <TextBlock Margin="10,0,0,0" FontSize="14">Cancel</TextBlock>
+                    <TextBlock Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center">取消</TextBlock>
                 </StackPanel>
             </Button>
 

@@ -7,7 +7,7 @@
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         TitleCharacterCasing="Normal"
-        Title="Markdown Monster Preview"
+        Title="Html预览窗口"
         BorderThickness="0" 
         GlowBrush="Black"                       
         ResizeMode="CanResizeWithGrip"  
@@ -26,13 +26,13 @@
         <WebBrowser Name="Browser">
             <WebBrowser.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Show in External Browser" Command="{Binding ViewInExternalBrowserCommand}" />
-                    <MenuItem Header="View Html Source" Command="{Binding ViewHtmlSourceCommand}" />
-                    <MenuItem Header="Configure Preview Syncing" Click="Button_Handler" Name="MenuItemPreviewConfigureSync"/>
+                    <MenuItem Header="在外部浏览器中显示" Command="{Binding ViewInExternalBrowserCommand}" />
+                    <MenuItem Header="查看Html源码" Command="{Binding ViewHtmlSourceCommand}" />
+                    <MenuItem Header="配置预览同步" Click="Button_Handler" Name="MenuItemPreviewConfigureSync"/>
                     <Separator />
-                    <MenuItem Header="Edit Preview Theme" Command="{Binding Commands.EditPreviewThemeCommand}"/>
+                    <MenuItem Header="编辑预览主题" Command="{Binding Commands.EditPreviewThemeCommand}"/>
                     <Separator/>
-                    <MenuItem Header="Hide HTML Preview" 
+                    <MenuItem Header="隐藏HTML预览" 
                               Command="{Binding PreviewBrowserCommand}"  IsCheckable="True"
                               IsChecked="{Binding IsPreviewBrowserVisible}" />
                 </ContextMenu>

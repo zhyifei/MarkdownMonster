@@ -69,12 +69,12 @@ namespace WeblogAddin
             };
 
             Id = "weblog";
-            Name = "Weblog Publishing Addin";
+            Name = "微博发布插件";
 
             // Create addin and automatically hook menu events
             var menuItem = new AddInMenuItem(this)
             {
-                Caption = "Weblog Publishing",                
+                Caption = "微博发布",                
                 FontawesomeIcon = FontAwesomeIcon.Rss,
                 KeyboardShortcut = WeblogAddinConfiguration.Current.KeyboardShortcut
             };

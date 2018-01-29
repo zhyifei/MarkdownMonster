@@ -343,7 +343,7 @@ namespace MarkdownMonster
 
 						string filename = doc.FilenamePathWithIndicator.Replace("*", "");
 						string template = filename +
-						                  "\r\n\r\nThis file has been modified by another program.\r\nDo you want to reload it?";
+						                  "\r\n\r\n该文件已在外部修改。\r\n是否要重新加载?";
 
 						if (MessageBox.Show(this, template,
 							    "Reload",
@@ -352,8 +352,8 @@ namespace MarkdownMonster
 						{
 							if (!doc.Load(doc.Filename))
 							{
-								MessageBox.Show(this, "Unable to re-load current document.",
-									"Error re-loading file",
+								MessageBox.Show(this, "无法重新加载该文件",
+									"重新加载文件错误",
 									MessageBoxButton.OK, MessageBoxImage.Exclamation);
 								continue;
 							}
@@ -369,8 +369,8 @@ namespace MarkdownMonster
 							catch (Exception ex)
 							{
 								mmApp.Log("Changed file notification update failure", ex);
-								MessageBox.Show(this, "Unable to re-load current document.",
-									"Error re-loading file",
+								MessageBox.Show(this, "无法重新加载当前文件。",
+									"重新加载文件错误",
 									MessageBoxButton.OK, MessageBoxImage.Exclamation);
 							}
 
@@ -695,7 +695,7 @@ namespace MarkdownMonster
 				//var res = await this.ShowMessageOverlayAsync("Unable to save Document",
 				//    "Unable to save document most likely due to missing permissions.");
 
-				MessageBox.Show("Unable to save document most likely due to missing permissions.",
+				MessageBox.Show("无法保存文档，可能你没有写入权限。",
 					mmApp.ApplicationName);
 				return false;
 			}
@@ -775,7 +775,7 @@ namespace MarkdownMonster
 	                {
 	                    try
 	                    {
-	                        ShowStatus("Auto-save recovery files have been found and opened in the editor.",
+	                        ShowStatus("自动恢复功能发现了一个备份并加载到编辑器。",
 	                            milliSeconds: 9000);
 	                        SetStatusIcon(FontAwesomeIcon.Warning, Colors.Red);
 	                        {
@@ -786,11 +786,11 @@ namespace MarkdownMonster
 	                    }
 	                    catch (Exception ex)
 	                    {
-	                        string msg = "Unable to open backup file: " + doc.BackupFilename + ".md";
+	                        string msg = "无法打开备份文件: " + doc.BackupFilename + ".md";
 	                        mmApp.Log(msg, ex);
 	                        MessageBox.Show(
-	                            "A backup file was previously saved, but we're unable to open it.\r\n" + msg,
-	                            "Cannot open backup file",
+	                            "一个以前备份的副本, 但是无法打开。\r\n" + msg,
+	                            "无法打开备份文件",
 	                            MessageBoxButton.OK,
 	                            MessageBoxImage.Warning);
 	                    }
@@ -805,7 +805,7 @@ namespace MarkdownMonster
 	                    bool? pwdResult = pwdDialog.ShowDialog();
 	                    if (pwdResult == false)
 	                    {
-	                        ShowStatus("Encrypted document not opened, due to missing password.",
+	                        ShowStatus("由于密码错误，无法打开加密文档。",
 	                            mmApp.Configuration.StatusTimeout);
 
 	                        return null;
@@ -817,14 +817,14 @@ namespace MarkdownMonster
 	                {
 	                    if (!batchOpen)
 	                    {
-                            var msg = "Most likely you don't have access to the file";
+                            var msg = "很可能你没有权限访问该文件";
 	                        if (doc.Password != null && doc.IsFileEncrypted())
-	                            msg = "Invalid password for opening this file";
+	                            msg = "打开该文件的密码错误。";
 	                        var file = Path.GetFileName(doc.Filename);
 
                             MessageBox.Show(
 	                            $"{msg}.\r\n\r\n{file}",
-	                            "Can't open File", MessageBoxButton.OK,
+	                            "无法打开文件", MessageBoxButton.OK,
 	                            MessageBoxImage.Warning);
 	                    }
 
@@ -1055,9 +1055,9 @@ namespace MarkdownMonster
 
 			if (doc.IsDirty && !dontPromptForSave)
 			{
-				var res = MessageBox.Show(Path.GetFileName(doc.Filename) + "\r\n\r\nhas been modified.\r\n" +
-				                          "Do you want to save changes?",
-					"Save Document",
+				var res = MessageBox.Show(Path.GetFileName(doc.Filename) + "\r\n\r\n已经修改\r\n" +
+				                          "是否要保存修改?",
+					"保存文档",
 					MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
 				if (res == MessageBoxResult.Cancel)
 				{
@@ -1089,7 +1089,7 @@ namespace MarkdownMonster
 				PreviewWebBrowserControl.Navigate("about:blank");
 				Model.ActiveDocument = null;
 				Title = "Markdown Monster" +
-				        (UnlockKey.Unlocked ? "" : " (unregistered)");
+				        (UnlockKey.Unlocked ? "" : " (未注册)");
 			}
 
 			if (rebindTabHeaders)
@@ -1201,7 +1201,7 @@ namespace MarkdownMonster
 
 			Title = title +
 			        "  - Markdown Monster" +
-			        (UnlockKey.Unlocked ? "" : " (unregistered)");
+			        (UnlockKey.Unlocked ? "" : " (未注册)");
 		}
 
         #endregion
@@ -1350,7 +1350,7 @@ namespace MarkdownMonster
 			if (isNewVersion)
 			{
 				var res = MessageBox.Show(updater.VersionInfo.Detail + "\r\n\r\n" +
-				                          "Do you want to download and install this version?",
+				                          "是否要下载并安装该版本?",
 					updater.VersionInfo.Title,
 					MessageBoxButton.YesNo,
 					MessageBoxImage.Information);
@@ -1416,12 +1416,12 @@ namespace MarkdownMonster
 				var fd = new OpenFileDialog
 				{
 					DefaultExt = ".htm",
-					Filter = "Html files (*.htm,*.html)|*.htm;*.html|" +
-					         "All files (*.*)|*.*",
+					Filter = "Html文件 (*.htm,*.html)|*.htm;*.html|" +
+					         "所有文件 (*.*)|*.*",
 					CheckFileExists = true,
 					RestoreDirectory = true,
 					Multiselect = true,
-					Title = "Open Html as Markdown"
+					Title = "按markdown格式打开Html"
 				};
 
 				if (!string.IsNullOrEmpty(mmApp.Configuration.LastFolder))
@@ -1476,14 +1476,14 @@ namespace MarkdownMonster
 			}
 			else if (button == MenuCheckNewVersion)
 			{
-				ShowStatus("Checking for new version...");
+				ShowStatus("检查新版本...");
 				if (!CheckForNewVersion(true, timeout: 5000))
 				{
-					ShowStatus("Your version of Markdown Monster is up to date.", 6000);
+					ShowStatus("你的软件已过期", 6000);
 					SetStatusIcon(FontAwesomeIcon.Check, Colors.Green);
 
 					MessageBox.Show(
-						"Your version of Markdown Monster is v" + mmApp.GetVersion() + " and you are up to date.",
+						"你的软件版本是 v" + mmApp.GetVersion() + " 并且已到期。",
 						mmApp.ApplicationName, MessageBoxButton.OK, MessageBoxImage.Information);
 				}
 			}
@@ -1581,15 +1581,15 @@ namespace MarkdownMonster
 				if (File.Exists(logFile))
 					ShellUtils.GoUrl(logFile);
 				else
-					MessageBox.Show("There are no errors in your log file.",
+					MessageBox.Show("未发现错误日志。",
 						mmApp.ApplicationName,
 						MessageBoxButton.OK,
 						MessageBoxImage.Information);
 			}
             else if(button == MenuResetConfiguration)
 		    {
-		        if (MessageBox.Show("This operation will reset all of your configuration settings and shut down Markdown Monster.\r\n\r\nAre you sure?",
-		                "Reset Configuration Settings",
+		        if (MessageBox.Show("该操作将恢复软件的所有默认设置，并关闭软件。\r\n\r\n是否确定？",
+		                "恢复默认配置",
 		                MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) == MessageBoxResult.Yes)
 		        {
 		            mmApp.Configuration.Backup();
@@ -1734,8 +1734,8 @@ namespace MarkdownMonster
 	            mmApp.Configuration.ApplicationTheme = Themes.Dark;
 
 	        if (MessageBox.Show(
-	                "Application theme changes require that you restart.\r\n\r\nDo you want to restart Markdown Monster?",
-	                "Theme Change", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) ==
+	                "修改软件主题需要重新打开软件生效\r\n\r\n是否要重启软件?",
+	                "更换主题", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes) ==
 	            MessageBoxResult.Yes)
 	        {
 	            mmApp.Configuration.Write();
@@ -1834,7 +1834,7 @@ namespace MarkdownMonster
 		{
 			if (message == null)
 			{
-				message = "Ready";
+				message = "就绪";
 				SetStatusIcon();
 			}
 

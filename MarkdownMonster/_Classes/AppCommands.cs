@@ -558,9 +558,9 @@ Do you want to View in Browser now?
                 var mi = Model.Window.WindowMenu;
                 mi.Items.Clear();
 
-                mi.Items.Add(new MenuItem { Header = "_Close Document", Command= Model.Commands.CloseActiveDocumentCommand  });
-                mi.Items.Add(new MenuItem { Header = "Close _All Documents", Command = Model.Commands.CloseAllDocumentsCommand });
-                mi.Items.Add(new MenuItem { Header = "Close All _But This Document", Command = Model.Commands.CloseAllDocumentsCommand, CommandParameter="AllBut" });
+                mi.Items.Add(new MenuItem { Header = "关闭文档(_C)", Command= Model.Commands.CloseActiveDocumentCommand  });
+                mi.Items.Add(new MenuItem { Header = "关闭所有文档(_A)", Command = Model.Commands.CloseAllDocumentsCommand });
+                mi.Items.Add(new MenuItem { Header = "关闭除此之外所有文档(_B)", Command = Model.Commands.CloseAllDocumentsCommand, CommandParameter="AllBut" });
                 
                 var menuItems = Model.Window.GenerateContextMenuItemsFromOpenTabs();
                 if (menuItems.Count < 1)

@@ -8,7 +8,7 @@
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Icon="../Assets/MarkdownMonster_Icon_256.png"                     
-        Title="Embed Syntax Colored Code" 
+        Title="嵌入高亮代码块" 
 		FontSize="15"
         TitleCharacterCasing="Normal"
         TitlebarHeight="35"                                 
@@ -110,7 +110,7 @@
                     Click="Button_Click"   >
                 <StackPanel Orientation="Horizontal">
                     <fa:FontAwesome Icon="Upload" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" Foreground="#FF0E7E28" FontSize="20" />
-                    <TextBlock Margin="10,0,0,0" FontSize="14">Paste Code</TextBlock>
+                    <TextBlock Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center">粘贴代码</TextBlock>
                 </StackPanel>
             </Button>
 
@@ -119,7 +119,7 @@
                     IsCancel="True" Click="Button_Click" >
                 <StackPanel Orientation="Horizontal">
                     <fa:FontAwesome Icon="Remove" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome"  FontSize="20"/>
-                    <TextBlock Margin="10,0,0,0" FontSize="14">Cancel</TextBlock>
+                    <TextBlock Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center">取消</TextBlock>
                 </StackPanel>
             </Button>
         </StackPanel>

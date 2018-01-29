@@ -10,7 +10,7 @@
         mc:Ignorable="d" FontSize="14"
         Icon="..\Assets\MarkdownMonsterAddins_Icon.png"
         TitlebarHeight="35"                                                                                          
-        Title="Markdown Monster Addin Manager"
+        Title="插件管理器"
         TitleCharacterCasing="Normal" ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterOwner"                      
         Height="730" Width="1100" MinWidth="900" MinHeight="500">
@@ -96,7 +96,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock x:Name="TextInstalledVersion" FontStyle="Italic" Text="{Binding installedVersion, StringFormat='installed version: v{0}  '}" Margin="0,5,10,0"
+                            <TextBlock x:Name="TextInstalledVersion" FontStyle="Italic" Text="{Binding installedVersion, StringFormat='已安装版本: v{0}  '}" Margin="0,5,10,0"
                                        Visibility="{Binding updateAvailable, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                             <Button Grid.Column="1" Name="ButtonInstall"  Height="20" 
@@ -105,7 +105,7 @@
                                     Click="ButtonInstall_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:FontAwesome Icon="Download" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome"  Margin="0,2,7,0" Foreground="LightGreen"/>
-                                    <TextBlock >Install</TextBlock>
+                                    <TextBlock >安装</TextBlock>
                                 </StackPanel>
                             </Button>
 
@@ -115,7 +115,7 @@
                                     Click="ButtonInstall_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:FontAwesome Icon="Retweet" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome"  Margin="0,2,7,0" Foreground="DarkOrange"/>
-                                    <TextBlock >Update</TextBlock>
+                                    <TextBlock >更新</TextBlock>
                                 </StackPanel>
                             </Button>
 
@@ -125,7 +125,7 @@
                                     Click="ButtonUnInstall_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <fa:FontAwesome Icon="Remove" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome"  Margin="0,2,7,0" Foreground="DarkRed"/>
-                                    <TextBlock Text="{Binding installedVersion,StringFormat='Uninstall v{0}'}" />
+                                    <TextBlock Text="{Binding installedVersion,StringFormat='卸载 v{0}'}" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -150,7 +150,7 @@
 
                 <TextBlock Foreground="LightSteelBlue" FontStyle="Italic" 
                                                Margin="0,5,0,8" 
-                                               Cursor="Arrow">more info</TextBlock>
+                                               Cursor="Arrow">更多信息</TextBlock>
 
                 <Image Source="{Binding ActiveAddin.gitScreenShotUrl}" Margin="0,10,0,0"/>
             </StackPanel>
@@ -167,7 +167,7 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
 
-            <TextBlock Name="StatusText" Grid.Column="1">Ready</TextBlock>
+            <TextBlock Name="StatusText" Grid.Column="1">就绪</TextBlock>
         </StatusBar>
 
 

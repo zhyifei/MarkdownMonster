@@ -13,7 +13,7 @@
         xmlns:windows="clr-namespace:MarkdownMonster.Windows;assembly=MarkdownMonster"
         mc:Ignorable="d"        
         Icon="MarkdownMonster_Icon_128.png"
-        Title="Markdown Monster Weblog Publishing" 
+        Title="微博发布" 
         TitleCharacterCasing="Normal" 
         TitlebarHeight="35"
         WindowStyle="SingleBorderWindow" ResizeMode="CanResizeWithGrip"                      
@@ -56,23 +56,23 @@
                 </Style>
             </dragablz:TabablzControl.Resources>
 
-            <controls:MetroTabItem Name="TabPublish" Header="Post to Weblog " Margin="0,0,5,0" CloseButtonEnabled="False"                                   
+            <controls:MetroTabItem Name="TabPublish" Header="发布到微博" Margin="0,0,5,0" CloseButtonEnabled="False"                                   
                                controls:ControlsHelper.HeaderFontSize="16" >
 
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="50,15">
-                    <Label>Title:</Label>
+                    <Label>标题:</Label>
                     <TextBox Text="{Binding ActivePostMetadata.Title}"  Style="{StaticResource HeaderStyle}" SpellCheck.IsEnabled="True"  />
 
-                    <Label Margin="0,10,0,0"  IsEnabled="{Binding IsAbstractVisible}">Abstract:</Label>
+                    <Label Margin="0,10,0,0"  IsEnabled="{Binding IsAbstractVisible}">摘要:</Label>
                     <TextBox TextWrapping="Wrap" Height="100"
                 	         Text="{Binding ActivePostMetadata.Abstract}" SpellCheck.IsEnabled="True" 
                              IsEnabled="{Binding IsAbstractVisible}" 
                               />
 
-                    <Label Margin="0,10,0,0" IsEnabled="{Binding IsCategoriesVisible}">Categories:</Label>
+                    <Label Margin="0,10,0,0" IsEnabled="{Binding IsCategoriesVisible}">类别:</Label>
                     <TextBox  Text="{Binding ActivePostMetadata.Categories}" IsEnabled="{Binding IsCategoriesVisible}"  />
 
-                    <Label Margin="0,10,0,0">Keywords:</Label>
+                    <Label Margin="0,10,0,0">关键词:</Label>
                     <TextBox Text="{Binding ActivePostMetadata.Keywords}"  />
 
 
@@ -85,19 +85,19 @@
 								<Setter Property="FontSize" Value="16" />
 							</Style>
 						</StackPanel.Resources>
-		                <TextBlock>Custom Fields:</TextBlock>
+		                <TextBlock>自定义字段:</TextBlock>
 		                <Button fa:Awesome.Content="PlusCircle" 								
 		                        Foreground="ForestGreen" 
 								ToolTip="Add a new Custom Field"
 								Click="ButtonAddCustomField_Click"/>
 						<Button fa:Awesome.Content="Remove" 
 		                        Foreground="Firebrick" 
-								ToolTip="Remove the selected Custom Field"
+								ToolTip="删除选择的自定义字段"
 								Click="ButtonDeleteCustomField_Click"/>
                         <Button Name="ButtonCustomFieldHelp" 
 								fa:Awesome.Content="InfoCircle" 
 								Foreground="SteelBlue"
-								ToolTip="More info on Custom Fields"
+								ToolTip="更多自定应字段信息"
 								Click="ButtonCustomFieldHelp_Click"/>
                     </StackPanel>
 
@@ -137,8 +137,8 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
 
-                        <Label Margin="0,10,0,0">Web Site to post to:</Label>
-                        <ComboBox  Grid.Row="1" Grid.Column="0" ToolTip="Weblog selection"
+                        <Label Margin="0,10,0,0">选择要发布的微博:</Label>
+                        <ComboBox  Grid.Row="1" Grid.Column="0" ToolTip="选择微博"
                            DisplayMemberPath="Value.Name"
                            SelectedValuePath="Value.Name"
                            SelectedValue="{Binding ActivePostMetadata.WeblogName}"
@@ -146,7 +146,7 @@
                            ItemsSource="{Binding Configuration.Weblogs}" 
                            />
 
-                        <Label Grid.Row="0"  Grid.Column="1" Margin="0,10,0,0" HorizontalAlignment="Right">Post Id:</Label>
+                        <Label Grid.Row="0"  Grid.Column="1" Margin="0,10,0,0" HorizontalAlignment="Right">帖子标识:</Label>
                         <TextBox Grid.Row="1"  IsEnabled="{Binding IsAbstractVisible}" Grid.Column="1"  Text="{Binding ActivePostMetadata.PostId}"  Margin="10,0,0,0"/>
 
 						<StackPanel Orientation="Horizontal" Margin="0,15,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
@@ -154,18 +154,18 @@
 							<ComboBox Name="ComboPostStatus" 
 							          SelectedValue="{Binding ActivePostMetadata.PostStatus, Mode=TwoWay}" 
 									  SelectedValuePath="Tag" Width="150">
-								<ComboBoxItem Content="Publish Post" Tag="publish" />
-								<ComboBoxItem Content="Publish as Draft"  Tag="draft"/>
-								<ComboBoxItem Content="Publish as Private" Tag="private" 
+								<ComboBoxItem Content="发布帖子" Tag="publish" />
+								<ComboBoxItem Content="发布为草稿"  Tag="draft"/>
+								<ComboBoxItem Content="发布私帖" Tag="private" 
 											  IsEnabled="{Binding ActiveWeblogInfo.Type, Converter={StaticResource StringComparisonToBooleanConverter},ConverterParameter='Wordpress'}"/>
 							</ComboBox>
 					
 							<CheckBox Name="InferFeaturedImage"  Margin="20,0,0,0" 
-                                  Content="Don't infer Featured Image"  IsChecked="{Binding ActivePostMetadata.DontInferFeaturedImage}" 
-                                  ToolTip="If checked won't infer a featured image from the first linked image in the post content."/>
+                                  Content="不推断置顶图片"  IsChecked="{Binding ActivePostMetadata.DontInferFeaturedImage}" 
+                                  ToolTip="如果选中，则不会从发布内容中的第一个链接图像推断出置顶图片。" VerticalContentAlignment="Center"/>
 							<CheckBox Name="StripH1Header"  Margin="20,0,0,0" 
-                                  Content="Don't strip Header Text"  IsChecked="{Binding ActivePostMetadata.DontStripH1Header}" 
-                                  ToolTip="If checked leaves strips the first H1 link in the post." />
+                                  Content="不要去掉标题文本"  IsChecked="{Binding ActivePostMetadata.DontStripH1Header}" 
+                                  ToolTip="如果勾选将去掉帖子里面的第一个H1标题。"  VerticalAlignment="Center" VerticalContentAlignment="Center" />
 						</StackPanel>
 					</Grid>
 
@@ -176,7 +176,7 @@
                         <Button  Grid.Column="0" Margin="0,10" Height="40" Width="175"  HorizontalAlignment="Left" Click="ButtonPostBlog_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <fa:FontAwesome Icon="Upload" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" Foreground="#FF0E7E28" FontSize="20" />
-                                <TextBlock Margin="10,0,0,0" FontSize="14">Post to Weblog</TextBlock>
+                                <TextBlock Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center">发布到微博</TextBlock>
                             </StackPanel>
                        </Button>
                          
@@ -184,7 +184,7 @@
                         <Button Grid.Column="1" Margin="10,20" Height="40" Width="175"  HorizontalAlignment="Left" Click="ButtonSaveMeta_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <fa:FontAwesome Icon="Check" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" Foreground="#FF0E7E28" FontSize="20" />
-                                <TextBlock Margin="10,0,0,0" FontSize="14">Save Metadata</TextBlock>
+                                <TextBlock Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center">保存元数据</TextBlock>
                             </StackPanel>
                         </Button>
                     </StackPanel>
@@ -197,17 +197,17 @@
 
 
 
-            <controls:MetroTabItem Margin="0,0,5,0" Header="New Weblog Entry"
+            <controls:MetroTabItem Margin="0,0,5,0" Header="新建说说"
                                    FontSize="16" CloseButtonEnabled="False"                                  
                                    controls:ControlsHelper.HeaderFontSize="16">
                 <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="50,15">
-                    <Label>Title:</Label>
+                    <Label>标题:</Label>
                     <TextBox Text="{Binding NewTitle, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HeaderStyle}"    />
 
-                    <Label Margin="0,10,0,0">Filename:</Label>
+                    <Label Margin="0,10,0,0">文件名:</Label>
                     <TextBox Text="{Binding NewFilename}" />
 
-                    <Label Margin="0,10,0,0">WebLog to post to:</Label>
+                    <Label Margin="0,10,0,0">要发布的微博:</Label>
                     <ComboBox  ToolTip="Weblog selection"
                            DisplayMemberPath="Value.Name"
                            SelectedValuePath="Value.Name"
@@ -221,7 +221,7 @@
                         Click="ButtonNewPost_Click" >
                         <StackPanel Orientation="Horizontal">
                             <fa:FontAwesome Icon="Check" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" Foreground="#FF0E7E28" FontSize="20" />
-                            <TextBlock Margin="10,0,0,0" FontSize="14">Create new Post</TextBlock>
+                            <TextBlock Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center">新建说说</TextBlock>
                         </StackPanel>
                     </Button>
 
@@ -229,7 +229,7 @@
             </controls:MetroTabItem>
 
 
-            <controls:MetroTabItem Header="Download Blog Post " Margin="0,0,5,0" controls:ControlsHelper.HeaderFontSize="16">
+            <controls:MetroTabItem Header="下载帖子" Margin="0,0,5,0" controls:ControlsHelper.HeaderFontSize="16">
                 <Grid Margin="40,15">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -240,13 +240,13 @@
                     </Grid.RowDefinitions>
                     <!--<Label Grid.Row="0" Foreground="#626262" FontSize="45" FontWeight="Bold" Margin="0,0,0,3">Experimental</Label>-->
 
-                    <Label Grid.Row="1">Select Blog</Label>
+                    <Label Grid.Row="1">选择帖子</Label>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition  Width="*"/>
                             <ColumnDefinition  Width="100"/>
                         </Grid.ColumnDefinitions>
-                        <ComboBox  Grid.Column="0" ToolTip="Weblog selection"
+                        <ComboBox  Grid.Column="0" ToolTip="微博选择"
                            DisplayMemberPath="Value.Name"
                            SelectedValuePath="Value.Name"
                            SelectedValue="{Binding ActivePostMetadata.WeblogName}"
@@ -271,10 +271,10 @@
                         Click="Button_DownloadPosts_Click" >
                             <StackPanel Orientation="Horizontal">
                                 <fa:FontAwesome Icon="Download" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" Foreground="#FF0E7E28" FontSize="20" />
-                                <TextBlock Margin="10,0,0,0" FontSize="14">Download Posts</TextBlock>
+                                <TextBlock Margin="10,0,0,0" FontSize="14" VerticalAlignment="Center">下载帖子</TextBlock>
                             </StackPanel>
                         </Button>
-                        <Label Grid.Column="1" Margin="20,0,0,0" HorizontalAlignment="Right" Height="35">Search:</Label>
+                        <Label Grid.Column="1" Margin="20,0,0,0" HorizontalAlignment="Right" Height="35">搜索:</Label>
                         <TextBox Grid.Column="2" Margin="5,0,0,0" Height="35"
                                  Text="{Binding PostListSearch, UpdateSourceTrigger=PropertyChanged}"
                                  />
@@ -320,7 +320,7 @@
             </controls:MetroTabItem>
             
 
-            <controls:MetroTabItem Header="Web Logs " Margin="0,0,5,0" 
+            <controls:MetroTabItem Header="微博 " Margin="0,0,5,0" 
                                    FontSize="16"
                                    controls:ControlsHelper.HeaderFontSize="16"
                                    CloseButtonEnabled="False">
@@ -343,14 +343,14 @@
                         <Button Grid.Column="1" Margin="5,0,0,0" Click="Button_NewWeblog">
                             <StackPanel Orientation="Horizontal">
                                 <fa:FontAwesome Icon="PlusCircle" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" Foreground="#FF0E7E28" Margin="0,2,5,0" />
-                                <TextBlock>New</TextBlock>
+                                <TextBlock>新建</TextBlock>
                             </StackPanel>
                         </Button>
                         <Button Grid.Column="2" Margin="5,0,0,0" Click="Button_DeleteWeblog">
 
                             <StackPanel Orientation="Horizontal">
                                 <fa:FontAwesome Icon="Remove" FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" Foreground="DarkRed" Margin="0,2,5,0" />
-                                <TextBlock>Delete</TextBlock>
+                                <TextBlock>删除</TextBlock>
                             </StackPanel>
                         </Button>
                     </Grid>
@@ -367,8 +367,8 @@
                             <ColumnDefinition Width="25" />
                         </Grid.ColumnDefinitions>
                         
-                        <Label  Grid.Row="0" Grid.Column="0">Name:</Label>
-                        <Label  Grid.Row="0" Grid.Column="1" Margin="7,0,0,0">Blog Id:</Label>
+                        <Label  Grid.Row="0" Grid.Column="0">名称:</Label>
+                        <Label  Grid.Row="0" Grid.Column="1" Margin="7,0,0,0">微博标识:</Label>
 
                         <TextBox Grid.Column="0" Grid.Row="1"  Text="{Binding ActiveWeblogInfo.Name}"  FontSize="15"  Style="{StaticResource HeaderStyle}" />
                         <TextBox Grid.Column="1" Grid.Row="1"  Text="{Binding ActiveWeblogInfo.BlogId}"  FontSize="15" Margin="7,0,0,0" Style="{StaticResource HeaderStyle}" />
@@ -408,7 +408,7 @@
                                 />
                     </Grid>
 
-                    <Label Margin="0,10,0,0">Blog type:</Label>
+                    <Label Margin="0,10,0,0">微博类型:</Label>
 
                     <ComboBox Name="ComboWeblogType"                            
                            SelectedValue="{Binding ActiveWeblogInfo.Type}"
@@ -423,21 +423,21 @@
                 	    Text="{Binding ActiveWeblogInfo.PreviewUrl}"  FontSize="15" />-->
 
                     <StackPanel Visibility="{Binding IsUserPassVisible, Converter={StaticResource BooleanToVisibilityConverter}}" >
-                        <Label Margin="0,10,0,0">Username:</Label>
+                        <Label Margin="0,10,0,0">用户名:</Label>
                         <TextBox Text="{Binding ActiveWeblogInfo.Username}"  FontSize="15" />
 
-                        <Label Margin="0,10,0,0">Password: (only set if you need to change)</Label>
+                        <Label Margin="0,10,0,0">密    码: (仅在需要修改时候输入)</Label>
                         <PasswordBox  Name="TextWeblogPassword" FontSize="15" LostFocus="TextWeblogPassword_LostFocus" />
                     </StackPanel>
                     <StackPanel Visibility="{Binding IsTokenVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Label Margin="0,10,0,0"   >Access Token: (only set if you need to change )</Label>
+                        <Label Margin="0,10,0,0"   >访问令牌: (仅在需要修改时候输入)</Label>
                         <PasswordBox  Name="TextWeblogToken" FontSize="15" LostFocus="TextWeblogToken_LostFocus" />
                     </StackPanel>
 
                     
                     <TextBlock Margin="0,20,0,0" FontSize="14"> 
                         <Hyperlink NavigateUri="https://markdownmonster.west-wind.com/docs/_4rg0qzg1i.htm" RequestNavigate="Hyperlink_UrlNavigate" Foreground="SteelBlue">
-                            configuration info...
+                            配置信息...
                         </Hyperlink>
                     </TextBlock>
 
@@ -463,7 +463,7 @@
                 <fa:FontAwesome Name="StatusIcon" Icon="Circle" Foreground="Green"/>
             </StatusBarItem>
             <StatusBarItem Grid.Column="1">
-                <TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">Ready</TextBlock>
+                <TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">就绪</TextBlock>
             </StatusBarItem>
         </StatusBar>
     </Grid>

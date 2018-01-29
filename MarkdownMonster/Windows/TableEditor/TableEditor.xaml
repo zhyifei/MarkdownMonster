@@ -13,7 +13,7 @@
         xmlns:controls1="clr-namespace:MarkdownMonster.Controls"
         mc:Ignorable="d"
         Icon="../../Assets/MarkdownMonster_Icon_256.png"                     
-        Title="Table Editor (Preview)"
+        Title="表格编辑器 (预览)"
         TitleCharacterCasing="Normal"
         TitlebarHeight="35"                       
         WindowStyle="SingleBorderWindow" ResizeMode="CanResize"                      
@@ -23,13 +23,13 @@
         Width="1020" Height="700">
     <Window.Resources>
         <ContextMenu x:Key="ColumnContextMenu">
-            <MenuItem Name="MenuInsertRowBelow" Header="Insert Row Below" Click="Button_Click" />
-            <MenuItem Name="MenuInsertRowAbove" Header="Insert Row Above" Click="Button_Click" />
-            <MenuItem Name="MenuDeleteRow" Header="Delete Row" Click="Button_Click"  />
+            <MenuItem Name="MenuInsertRowBelow" Header="下方插入行" Click="Button_Click" />
+            <MenuItem Name="MenuInsertRowAbove" Header="上方插入行" Click="Button_Click" />
+            <MenuItem Name="MenuDeleteRow" Header="删除行" Click="Button_Click"  />
             <Separator />
-            <MenuItem Name="MenuInsertColumnRight" Header="Insert Column Right" Click="Button_Click" />
-            <MenuItem Name="MenuInsertColumnLeft" Header="Insert Column Left" Click="Button_Click"/>
-            <MenuItem Name="MenuDeleteColumn" Header="Delete Column" Click="Button_Click" />
+            <MenuItem Name="MenuInsertColumnRight" Header="右侧插入列" Click="Button_Click" />
+            <MenuItem Name="MenuInsertColumnLeft" Header="左侧插入列" Click="Button_Click"/>
+            <MenuItem Name="MenuDeleteColumn" Header="删除列" Click="Button_Click" />
         </ContextMenu>
     </Window.Resources>
     <Window.InputBindings>
@@ -51,7 +51,7 @@
                             <fa:FontAwesome Margin="5,2,5,0" Icon="CheckCircleOutline"                                             
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                                             Foreground="#1F9B3C" />
-                            <TextBlock>Embed Table</TextBlock>
+                            <TextBlock>嵌入表格</TextBlock>
                         </StackPanel>
                     </Button>
 
@@ -60,7 +60,7 @@
                             <fa:FontAwesome Margin="5,2,5,0" Icon="Times"                                             
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                                             Foreground="Firebrick" />
-                            <TextBlock>Cancel</TextBlock>
+                            <TextBlock>取消</TextBlock>
                         </StackPanel>
                     </Button>
 
@@ -70,19 +70,19 @@
                             <fa:FontAwesome Margin="5,2,5,0" Icon="Paste"                                             
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                                              />
-                            <TextBlock>Paste from Clipboard</TextBlock>
+                            <TextBlock>从剪切板粘贴 </TextBlock>
                         </StackPanel>
                     </Button>
                 </ToolBar>
 
                 <ToolBar>
-                    <TextBlock Margin="0,3,0,5">Insert:</TextBlock>
+                    <TextBlock Margin="0,3,0,5">插入:</TextBlock>
                     <Button Name="ButtonInsertRowBelow"   Click="Button_Click">
                         <StackPanel Orientation="Horizontal">
                             <fa:FontAwesome Margin="5,2,5,0" Icon="ArrowCircleOutlineDown"                                             
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                                              />
-                            <TextBlock>Row Below</TextBlock>
+                            <TextBlock>下方插入行</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Name="ButtonInsertRowAbove"   Click="Button_Click">
@@ -90,7 +90,7 @@
                             <fa:FontAwesome Margin="5,2,5,0" Icon="ArrowCircleOutlineUp"                                             
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                             />
-                            <TextBlock>Row Above</TextBlock>
+                            <TextBlock>上方插入行</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Name="ButtonInsertColumnRight"   Click="Button_Click">
@@ -98,7 +98,7 @@
                             <fa:FontAwesome Margin="5,2,5,0" Icon="ArrowCircleOutlineRight"                                             
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                             />
-                            <TextBlock>Column Right</TextBlock>
+                            <TextBlock>右侧插入列</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Name="ButtonInsertColumnLeft"   Click="Button_Click">
@@ -106,7 +106,7 @@
                             <fa:FontAwesome Margin="5,2,5,0" Icon="ArrowCircleOutlineLeft"                                             
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                             />
-                            <TextBlock>Column Left</TextBlock>
+                            <TextBlock>左侧插入列</TextBlock>
                         </StackPanel>
                     </Button>
 
@@ -117,7 +117,7 @@
                             <fa:FontAwesome Margin="5,2,5,0" Icon="TimesCircle"                                             
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                             />
-                            <TextBlock>Delete Column</TextBlock>
+                            <TextBlock>删除列</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Name="ButtonDeleteRow"    Click="Button_Click">
@@ -125,7 +125,7 @@
                             <fa:FontAwesome Margin="5,2,5,0" Icon="TimesCircle"                                             
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                             />
-                            <TextBlock>Delete Row</TextBlock>
+                            <TextBlock>删除行</TextBlock>
                         </StackPanel>
                     </Button>
                 </ToolBar>
@@ -153,7 +153,7 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="2"  Orientation="Horizontal" Margin="10">
-            <TextBlock Margin="0,2,10,0">generate as:</TextBlock>
+            <TextBlock Margin="0,2,10,0">生成为:</TextBlock>
             <ComboBox Name="ComboTableMode" ItemsSource="{Binding TableModes}" SelectedItem="{Binding TableMode, Mode=TwoWay}"  Width="300"/>
         </StackPanel>
     </Grid>

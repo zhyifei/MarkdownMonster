@@ -12,7 +12,7 @@
         ResizeMode="NoResize"
 		WindowStartupLocation="CenterOwner"					 
 		FontSize="15"                      
-        Title="Save As Pdf File" Height="520" Width="575">
+        Title="另存为PDF文件" Height="520" Width="575">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Style TargetType="Control">
@@ -48,7 +48,7 @@
                             <fa:FontAwesome Icon="Check" Margin="5,4,5,0" 
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome" 
                                             Foreground="LightGreen"  />
-                            <TextBlock>Generate PDF File</TextBlock>
+                            <TextBlock VerticalAlignment="Center">生成PDF文件</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Name="ButtonCancel" 
@@ -58,7 +58,7 @@
                             <fa:FontAwesome Icon="Remove" Margin="5,4,5,0" 
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome"                                              
                                             Foreground="DarkRed"/>
-                            <TextBlock>Exit</TextBlock>
+                            <TextBlock VerticalAlignment="Center">退出</TextBlock>
                         </StackPanel>
                     </Button>
 
@@ -72,7 +72,7 @@
                             <fa:FontAwesome Icon="Clipboard" Margin="5,4,5,0" 
                                             FontFamily="pack://application:,,,/FontAwesome.WPF;component/#FontAwesome"                                              
                                             />
-                            <TextBlock>Copy Commandline</TextBlock>
+                            <TextBlock VerticalAlignment="Center">复制命令行</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button Name="ButtonHelpCopyLastCommandToClipboard"       Margin="5,0,0,0"                 
@@ -87,10 +87,10 @@
         </ToolBarPanel>
 
         <StackPanel Margin="30,25" Grid.Row="1">
-            <TextBlock >Document Title: (optional)</TextBlock>
+            <TextBlock >文档标题: (可选)</TextBlock>
             <TextBox Name="TextTitle" Text="{Binding PdfGenerator.Title}" FontSize="14"  />
 
-            <Label Margin="0,10,0,0">Footer Text: (optional - ie. 'Page [page] of [topage]')</Label>
+            <Label Margin="0,10,0,0">页脚文本: (可选 - 例如 '第 [page] 页(共 [topage] 页)')</Label>
             <TextBox Text="{Binding PdfGenerator.FooterText}" FontSize="14" />
 
             <Grid Margin="0,10,0,0">
@@ -101,7 +101,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel>
-                    <Label>Page Size</Label>
+                    <Label>页面尺寸</Label>
                     <ComboBox
 						Name="TextPageSize" FontSize="14" 						
 						SelectedValue="{Binding PdfGenerator.PageSize}" >
@@ -109,7 +109,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                    <Label>Page Orientation</Label>
+                    <Label>页面布局</Label>
                     <ComboBox FontSize="14"
 						Name="TextPageOrientation" 						
 						SelectedValue="{Binding PdfGenerator.Orientation}" >
@@ -123,21 +123,21 @@
             </Grid>
 
             <StackPanel Margin="0,30,0,0">
-                <TextBlock>Margins: (in millimeters - 0 uses default)</TextBlock>
+                <TextBlock>页边距: (毫米 - 默认0)</TextBlock>
 
                 <StackPanel Margin="25,10,0,0" Orientation="Horizontal">
-                    <TextBlock Width="60" >Left:</TextBlock>
+                    <TextBlock Width="60" >左:</TextBlock>
                     <TextBox Width="50" Text="{Binding PdfGenerator.Margins.MarginLeft}"/>
 
-                    <TextBlock  Width="60" Margin="20,0,0,0">Right:</TextBlock>
+                    <TextBlock  Width="60" Margin="20,0,0,0">右:</TextBlock>
                     <TextBox Width="50" Text="{Binding PdfGenerator.Margins.MarginRight}"/>
                 </StackPanel>
 
                 <StackPanel Margin="25,10,0,0" Orientation="Horizontal">
-                    <TextBlock Width="60" >Top:</TextBlock>
+                    <TextBlock Width="60" >上:</TextBlock>
                     <TextBox Width="50"  Text="{Binding PdfGenerator.Margins.MarginTop}"/>
 
-                    <TextBlock Width="60" Margin="20,0,0,0">Bottom:</TextBlock>
+                    <TextBlock Width="60" Margin="20,0,0,0">下:</TextBlock>
                     <TextBox Width="50" Text="{Binding PdfGenerator.Margins.MarginBottom}"/>
                 </StackPanel>
 
@@ -148,12 +148,12 @@
 
             <CheckBox Name="CheckGenerateTableOfContents"
                 IsChecked="{Binding PdfGenerator.GenerateTableOfContents}"				
-                Content="Generate Table of Contents"
+                Content="生成目录"
             />
  
             <CheckBox Margin="0 7 0 0"
                     IsChecked="{Binding PdfGenerator.DisplayPdfAfterGeneration}"				
-                    Content="Display PDF after generation"
+                    Content="生成后打开PDF"
                 />
 
             <Separator Margin="0,10" />
@@ -180,7 +180,7 @@
 				<fa:FontAwesome Name="StatusIcon" Icon="Circle" Foreground="Green"/>
 			</StatusBarItem>
 			<StatusBarItem Grid.Column="1">
-				<TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">Ready</TextBlock>
+				<TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">就绪</TextBlock>
 			</StatusBarItem>
 			<StatusBarItem Grid.Column="2">
 				<TextBlock Name="StatusImageSize" x:FieldModifier="public" HorizontalAlignment="Left"></TextBlock>

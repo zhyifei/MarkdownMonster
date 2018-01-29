@@ -66,6 +66,7 @@ namespace MarkdownMonster
         /// <returns></returns>
         public static bool IsRegistered()
         {
+            return true;
             lock (LockKey)
             {
                 RegisteredCalled = true;

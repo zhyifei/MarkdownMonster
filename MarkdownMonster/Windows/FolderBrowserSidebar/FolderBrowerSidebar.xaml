@@ -134,13 +134,13 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Height="Auto" 
-					   Text="FILES"  
+					   Text="文件"  
 					   FontWeight="Medium" FontSize="11"  Padding="7,5,2,5" />
 
                 <Button Content="…" Grid.Column="1" Background="Transparent"
 			        Foreground="{DynamicResource BlueItem}" Padding="5,0,5,0"
 			        Name="ButtonSelecttFolder" BorderThickness="0"  FontSize="12"
-			        ToolTip="Browse for Folder" 
+			        ToolTip="浏览文件夹" 
 			        Click="ButtonSelectFolder_Click" />
                 <Button fa:Awesome.Content="History" Grid.Column="2" Background="Transparent"
                     Foreground="{DynamicResource BlueItem}" Padding="6,0,6,0" 
@@ -150,17 +150,17 @@
                 <Button  fa:Awesome.Content="LocationArrow" Background="Transparent" 
 			         Foreground="{DynamicResource BlueItem}" Padding="6,0,6,0" Grid.Column="3"  
 					 Name="ButtonUseCurrentFolder" BorderThickness="0" FontSize="12"
-			         ToolTip="Set Folder to Active Document's Folder" 
+			         ToolTip="设置当前文档所在文件夹为当前文件夹" 
 			         Click="ButtonUseCurrentFolder_Click" />
                 <Button  fa:Awesome.Content="Refresh" Background="Transparent" 
 			         Foreground="{DynamicResource BlueItem}" Padding="6,0,6,0" Grid.Column="4"  
 			         Name="ButtonRefreshFolder" BorderThickness="0"  FontSize="12"
-			         ToolTip="Refresh Folder" 
+			         ToolTip="刷新文件夹" 
 			         Click="ButtonRefreshFolder_Click" />
                 <Button  fa:Awesome.Content="ChevronCircleLeft" Background="Transparent" 
 			         Foreground="{DynamicResource BlueItem}" Padding="7,0,7,0" Grid.Column="5"  
 			         Name="ButtonClosePanel" BorderThickness="0" FontSize="12"
-			         ToolTip="Close Folder Browser Panel" 
+			         ToolTip="关闭文件夹浏览面板" 
 			         Click="ButtonClosePanel_Click" />
             </Grid>
 
@@ -173,7 +173,7 @@
 	             ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"                 
 	             BorderThickness="0"                                                                       
                  MaxDropDownHeight="275"
-                 controls:TextBoxHelper.Watermark="Folder Browser Path">
+                 controls:TextBoxHelper.Watermark="文件夹浏览路径">
                 <i:Interaction.Behaviors>
                     <mmcontrols:FileSystemAutoCompleteBehavior />
                 </i:Interaction.Behaviors>

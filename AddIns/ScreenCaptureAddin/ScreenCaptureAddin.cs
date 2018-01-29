@@ -59,7 +59,7 @@ namespace SnagItAddin
             // create menu item and use OnExecute/OnExecuteConfiguration/OnCanExecute handlers            
             var menuItem = new AddInMenuItem(this)
             {
-                Caption = "Screen Capture",
+                Caption = "截屏工具",
                 FontawesomeIcon = FontAwesomeIcon.Camera,
                 KeyboardShortcut = ScreenCaptureConfiguration.Current.KeyboardShortcut
             };
@@ -78,7 +78,7 @@ namespace SnagItAddin
         {
             if (Model.ActiveDocument == null)
             {
-                MessageBox.Show("Can't capture a screen - there's no open document to capture to.",
+                MessageBox.Show("无法截屏 - 未打开任何文档！",
                     mmApp.ApplicationName, MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
