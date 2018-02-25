@@ -112,15 +112,20 @@ namespace MarkdownMonster.Windows
         /// Internal value
         /// </summary>
         private FolderStructure FolderStructure { get; } = new FolderStructure();
+        public object WindowUtilties { get; private set; }
+
+        private FileSystemWatcher FileWatcher = null;
+
 
         #region Initialization
 
         public FolderBrowerSidebar()
         {
+
             InitializeComponent();
             Focusable = true;
             DataContext = this;
-            Loaded += FolderBrowerSidebar_Loaded;
+            Loaded += FolderBrowerSidebar_Loaded;           
         }
 
 
@@ -132,6 +137,99 @@ namespace MarkdownMonster.Windows
             
             // Load explicitly here to fire *after* behavior has attached
             ComboFolderPath.PreviewKeyUp += ComboFolderPath_PreviewKeyDown;
+        }
+        #endregion
+
+        #region FileWatcher
+
+        private void FileWatcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            Debug.WriteLine("Rename: " + e.FullPath + " from " + e.OldFullPath);
+            var file = e.FullPath;
+            var oldFile = e.OldFullPath;
+
+            var pi = FolderStructure.FindPathItemByFilename(ActivePathItem, oldFile);
+            if (pi == null)
+                return;
+
+            pi.FullPath = file;
+            Dispatcher.Invoke(() => pi.Parent.Files.Remove(pi));
+
+            FolderStructure.InsertPathItemInOrder(pi, pi.Parent);
+        }
+
+        private void FileWatcher_CreateOrDelete(object sender, FileSystemEventArgs e)
+        {
+            Debug.WriteLine("Create Or Delete: " + e.FullPath + " " + e.ChangeType);
+            var file = e.FullPath;
+            
+            if (e.ChangeType == WatcherChangeTypes.Deleted)
+            {
+                // TODO:  this is not working
+                
+                mmApp.Model.Window.Dispatcher.Invoke(() =>
+                {
+                    var pi = FolderStructure.FindPathItemByFilename(ActivePathItem, file);
+                    if (pi == null)
+                        return;
+                    
+                    pi.Parent.Files.Remove(pi);
+
+                    Debug.WriteLine("After: " + pi.Parent.Files.Count + " " + file);
+                },DispatcherPriority.ApplicationIdle);
+            }
+
+            if (e.ChangeType == WatcherChangeTypes.Created)
+            {
+                var pi = FolderStructure.FindPathItemByFilename(ActivePathItem, file);
+                if (pi != null) // Already exists in the tree
+                    return;
+
+                // does the path exist?
+                var parentPathItem =
+                    FolderStructure.FindPathItemByFilename(ActivePathItem, Path.GetDirectoryName(file));
+                if (parentPathItem == null) // path is not expanced yet
+                    return;
+
+                bool isFolder = Directory.Exists(file);
+                pi = new PathItem()
+                {
+                    FullPath = file,
+                    IsFolder = isFolder,
+                    IsFile = !isFolder,
+                    Parent = parentPathItem
+                };
+                pi.SetIcon();
+
+                FolderStructure.InsertPathItemInOrder(pi, parentPathItem);
+            }
+
+        }
+
+        private void AttachFileWatcher(string fullPath)
+        {
+            if(FileWatcher != null)
+                ReleaseFileWatcher();
+
+            FileWatcher = new FileSystemWatcher(fullPath)
+            {
+                IncludeSubdirectories = true,
+                EnableRaisingEvents = true
+            };
+            FileWatcher.Created += FileWatcher_CreateOrDelete;
+            FileWatcher.Deleted += FileWatcher_CreateOrDelete;
+            FileWatcher.Renamed += FileWatcher_Renamed;
+        }
+
+        private void ReleaseFileWatcher()
+        {
+            if (FileWatcher != null)
+            {
+                FileWatcher.Created -= FileWatcher_CreateOrDelete;
+                FileWatcher.Deleted -= FileWatcher_CreateOrDelete;
+                FileWatcher.Renamed -= FileWatcher_Renamed;
+                FileWatcher.Dispose();
+            }
         }
         #endregion
 
@@ -148,9 +246,9 @@ namespace MarkdownMonster.Windows
                 ActivePathItem = null;
                 WindowUtilities.DoEvents();
 
-                var items = FolderStructure.GetFilesAndFolders(folder, nonRecursive: true);
+                var items = FolderStructure.GetFilesAndFolders(folder, nonRecursive: false, ignoredFolders: ".git");
                 ActivePathItem = items;
-
+                
                 WindowUtilities.DoEvents();
                 Window.ShowStatus();
 
@@ -159,6 +257,8 @@ namespace MarkdownMonster.Windows
 
                 if (setFocus)
                     TreeFolderBrowser.Focus();
+
+                AttachFileWatcher(folder);
 
             }, DispatcherPriority.ApplicationIdle);
         }
@@ -279,7 +379,11 @@ namespace MarkdownMonster.Windows
 
         #region TreeView Selection Handling
 
-        private void TreeView_Keyup(object sender, KeyEventArgs e)
+        private string searchFilter = string.Empty;
+        private DateTime searchFilterLast = DateTime.MinValue;
+
+
+        private void TreeView_Keydown(object sender, KeyEventArgs e)
         {            
             var selected = TreeFolderBrowser.SelectedItem as PathItem;
 
@@ -329,6 +433,53 @@ namespace MarkdownMonster.Windows
                 }
             }
 
+            
+
+            if (e.Key >= Key.A && e.Key <= Key.Z ||
+                e.Key >= Key.D0 && e.Key <= Key.D9 ||
+                e.Key == Key.OemPeriod ||
+                e.Key == Key.Space ||
+                e.Key == Key.Separator ||
+                e.Key == Key.OemMinus &&                
+                (!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.LeftAlt)))
+            {
+                //Debug.WriteLine("Treeview TreeDown: " + e.Key + " shfit: " + Keyboard.IsKeyDown(Key.LeftShift));
+                var keyConverter = new KeyConverter();
+
+                string k;
+
+                if (e.Key == Key.OemPeriod)
+                    k = ".";
+                else if (e.Key == Key.OemMinus && Keyboard.IsKeyDown(Key.LeftShift))
+                    k = "_";
+                else if (e.Key == Key.OemMinus)
+                    k = "-";
+                else if (e.Key == Key.Space)
+                    k = " ";
+                else
+                    k = keyConverter.ConvertToString(e.Key);
+
+                if (searchFilterLast > DateTime.Now.AddSeconds(-1.2))
+                    searchFilter += k.ToLower();
+                else
+                    searchFilter = k.ToLower();
+
+                Window.ShowStatus("File search filter: " + searchFilter, 2000);
+
+                var lowerFilter = searchFilter.ToLower();
+
+                var parentPath = selected.Parent;
+                if (parentPath == null)
+                    parentPath = ActivePathItem; // root
+
+                var item = parentPath.Files.FirstOrDefault(sf => sf.DisplayName.ToLower().StartsWith(lowerFilter));
+                if (item != null)
+                    item.IsSelected = true;
+
+
+                searchFilterLast = DateTime.Now;
+            }
+
         }
 
         private void FolderBrowserGrid_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -375,20 +526,16 @@ namespace MarkdownMonster.Windows
             if (selected == null || selected.IsFile || selected.FullPath == "..")
                 return;
 
-            if (selected.Files == null || selected.Files.Count == 1 && selected.Files[0] == PathItem.Empty)
-            {
-                var subfolder =
-                    FolderStructure.GetFilesAndFolders(selected.FullPath, nonRecursive: true, parentPathItem: selected);
-
-                selected.Files.Clear();
-                foreach (var pi in subfolder.Files)
-                    selected.Files.Add(pi);
-
-                // have to force OPC to make the new files visible
-                selected.OnPropertyChanged(nameof(PathItem.Files));
+            if (selected.Files != null && selected.Files.Count == 1 && selected.Files[0] == PathItem.Empty)
+            {                
+                var subfolder = FolderStructure.GetFilesAndFolders(selected.FullPath, nonRecursive: true, parentPathItem: selected);
             }
         }
 
+        private void Files_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            return;
+        }
 
         private void TreeViewItem_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {

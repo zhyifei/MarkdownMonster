@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.ExceptionServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,12 +11,11 @@ using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 using FontAwesome.WPF;
-using MarkdownMonster.Windows;
 using Westwind.Utilities;
 
-namespace MarkdownMonster
+namespace MarkdownMonster.Windows.PreviewBrowser
 {
-    public class PreviewWebBrowser 
+    public class IEWebBrowserPreviewHandler : IPreviewBrowser
     {
         /// <summary>
         /// Instance of the Web Browser control that hosts ACE Editor
@@ -29,7 +25,7 @@ namespace MarkdownMonster
         public dynamic BrowserPreview { get; set; }
 
 
-        WebBrowserHostUIHandler wbHandler;
+        IEWebBrowserEditorHandler wbHandler;
         
         /// <summary>
         /// Reference back to the main Markdown Monster window that 
@@ -37,8 +33,18 @@ namespace MarkdownMonster
         public MainWindow Window { get; set; }
 
         public AppModel Model { get; set; }
+        
+        public bool IsVisible
+        {
+            get { return this.WebBrowser.Visibility == Visibility.Visible; }
+            set { _isVisible = value; }
+        }
 
-        public PreviewWebBrowser(WebBrowser browser)
+      
+
+        private bool _isVisible;
+
+        public IEWebBrowserPreviewHandler(WebBrowser browser)
         {
             WebBrowser = browser;
             Model = mmApp.Model;
@@ -46,7 +52,7 @@ namespace MarkdownMonster
             
             InitializePreviewBrowser();
             
-            wbHandler = new WebBrowserHostUIHandler(browser);            
+            wbHandler = new IEWebBrowserEditorHandler(browser);            
         }
         
 
@@ -138,7 +144,7 @@ namespace MarkdownMonster
 
                             return;
                         }
-
+                            
                         renderedHtml = StringUtils.ExtractString(renderedHtml,
                             "<!-- Markdown Monster Content -->",
                             "<!-- End Markdown Monster Content -->");
@@ -242,10 +248,8 @@ namespace MarkdownMonster
             if (invoked == DateTime.MinValue) // || current.Subtract(invoked).TotalMilliseconds > 4000)
             {
                 invoked = current;
-
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle,
-                    new Action(() =>
-                    {
+                Application.Current.Dispatcher.InvokeAsync(
+                    () => {
                         try
                         {
                             PreviewMarkdown(editor, keepScrollPosition, renderedHtml: renderedHtml);
@@ -258,10 +262,19 @@ namespace MarkdownMonster
                         {
                             invoked = DateTime.MinValue;
                         }
-                    }));
+                    }, DispatcherPriority.ApplicationIdle);
             }
         }
 
+        public void Navigate(string url)
+        {
+            WebBrowser.Navigate(new Uri(url));
+        }
+
+        public void ExecuteCommand(string command, params dynamic[] args)
+        {
+            MessageBox.Show("PreviewBrowser Command not implemented: " + command);
+        }
 
 
         private void InitializePreviewBrowser()
@@ -326,6 +339,8 @@ namespace MarkdownMonster
                     }
                 });
             }
-        }        
+        }
+
+
     }
 }

@@ -3,28 +3,9 @@
 ![](https://img.shields.io/chocolatey/dt/markdownmonster.svg)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/MarkdownMonster/MarkdownMonster)
 
-#### An extensible Markdown Editor, Viewer and Weblog Publisher for Windows
-
 ![Markdown Monster Image](Art/MarkdownMonster.png)
 
-## Links
-* **[Markdown Monster Site](http://markdownmonster.west-wind.com)**
-* **[Download Installer](http://markdownmonster.west-wind.com/download.aspx)**
-* **[Install from Chocolatey](https://chocolatey.org/packages/MarkdownMonster)**
-* **[What's New](Changelog.md)** (change log)
-* **[Video: Getting Started with Markdown Monster](https://www.youtube.com/watch?v=XjFf57Ap9VE)**  
-* **[Follow @MarkdownMonstr on Twitter](https://twitter.com/markdownmonstr)**
-* **[Documentation](https://markdownmonster.west-wind.com/docs/)**
-* **[Create Addins with .NET](http://markdownmonster.west-wind.com/docs/_4ne0s0qoi.htm)**
-* **[Markdown Monster Addin Registry](https://github.com/RickStrahl/MarkdownMonsterAddinsRegistry)**  
-* **[Bug Reports & Feature Requests](https://github.com/rickstrahl/MarkdownMonster/issues)**
-* **[Discussion Forum](http://support.west-wind.com?forum=Markdown+Monster)**
-* **[License](#license)**
-
-If you like what you see please consider :star: **starring this repo** (top right corner of this page). Please help spread the word.
-
-> ### Please report any Issues you run into
-> If you run into a problem with Markdown Monster, please let us know by [filing an issue](https://github.com/rickstrahl/MarkdownMonster/issues) or feature request here on GitHub. We want to know what doesn't work and get it fixed. **Help us make Markdown Monster better**!
+Markdown Monster is an easy to use and extensible Markdown Editor, Viewer and Weblog Publisher for Windows. Our goal is to provide the best Markdown specific editor for Windows and make it as easy as possible to create Markdown documents. We provide a core editor and previewer, and a number of non-intrusive helpers to help embed content like images, links, tables, code and more into your documents with minimal effort.
 
 Here's what Markdown Monster looks like using the default **Dark Theme**:
 
@@ -34,7 +15,48 @@ and here is the **Light Theme**:
 
 ![Markdown Monster Screen Shot](ScreenShot_Light.png)
 
-> In addition you can customize both the editor and preview themes individually. The screen shots above use different editor and preview themes for example. 
+#### Customizable
+Markdown Monster is highly customizable and you can adjust the main window theme, the editor and preview themes using plain HTML/CSS based templates. You can also use our Snippets and Commander addins to automate Markdown Monster, or create full blown addins that can access and update active documents as well as add new UI features to the application.
+
+#### Weblog Publishing
+Wish you could write your blog posts in Markdown? You can use Markdown Monster to write your posts in Markdown and publish the generated HTML content directly to your Wordpress, Medium, MetaWeblog or West Wind Post API Weblog engine in seconds. You can also use any Git based service for your posts by simply saving the post and its post meta data to disk.
+
+## Installation
+You can download Markdown Monster and use the self-contained installer:
+
+* **[Download Installer](http://markdownmonster.west-wind.com/download.aspx)**
+
+Or you can you use [Chocolatey](https://chocolatey.org/) to install from the Windows Comand Line:
+
+```ps
+c:\> choco install markdownmonster
+```
+To update to the latest version:
+```ps
+c:\> choco upgrade markdownmonster
+```
+
+## Links
+* **[Markdown Monster Site](http://markdownmonster.west-wind.com)**
+* **[What's New](Changelog.md)** (change log)
+* **[Video: Getting Started with Markdown Monster](https://www.youtube.com/watch?v=XjFf57Ap9VE)**  
+* **[Markdown Monster Addin Registry](https://github.com/RickStrahl/MarkdownMonsterAddinsRegistry)**  
+* **[Create Addins with .NET](http://markdownmonster.west-wind.com/docs/_4ne0s0qoi.htm)**
+* **[License](#license)**
+
+* **[Bug Reports & Feature Requests](https://github.com/rickstrahl/MarkdownMonster/issues)**
+* **[Discussion Forum](http://support.west-wind.com?forum=Markdown+Monster)**
+
+* **[Follow @MarkdownMonstr on Twitter](https://twitter.com/markdownmonstr)**
+* **[Documentation](https://markdownmonster.west-wind.com/docs/)**
+
+> ### Show your Support
+> If you like what you see here, please consider **starring this repo** (click the :star: in the top right corner of this page). If you have a favorite feature in Markdown Monster, it'd be awesome if you could tweet about it and mention [@markdownmonstr](https://twitter.com/markdownmonstr). Please help us spread the word. 
+
+
+> ### Please report any Issues you run into!
+> If you run into a problem with Markdown Monster, **please** let us know by [filing an issue](https://github.com/rickstrahl/MarkdownMonster/issues) or feature request here on GitHub. We want to know what doesn't work and get it fixed. **Help us make Markdown Monster better**!
+
 
 ## Features
 Markdown Monster provides many useful features:
@@ -121,6 +143,9 @@ JSON, XML, CSS, JavaScript, Typescript, FoxPro, CSharp and more
 * Simple interface, easy to implement
 * Access UI, menu and active documents
 * Access document and application lifecycle events
+* Add Custom Markdown Parsers
+* Replace the Preview Rendering Engine
+* Add Tabs to the Browser Sidebar
 * Published addins available:
     * [Snippets: Scripted Text Expansions](https://github.com/RickStrahl/Snippets-MarkdownMonster-Addin)
     * [Commander: C# based Script Automation](https://github.com/RickStrahl/Commander-MarkdownMonster-Addin)

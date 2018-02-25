@@ -1,3 +1,33 @@
+
+[//]: # (TOC Begin)
+* [Generate PDFs from your Markdown Topics](#generate-pdfs-from-your-markdown-topics)
+* [Distraction Free Mode](#distraction-free-mode)
+* [Viewer Mode](#viewer-mode)
+* [Right Click To Edit Images, Links and Tables](#right-click-to-edit-images-links-and-tables)
+* [Using Gists for Bug Reports and general Purpose Web Pages](#using-gists-for-bug-reports-and-general-purpose-web-pages)
+* [3 ways to Image Embedding](#ways-to-image-embedding)
+* [Changing Update Check Interval](#changing-update-check-interval)
+* [FontAwesome Icons](#fontawesome-icons)
+* [Snippet Add-in](#snippet-add-in)
+* [Portable Version ](#portable-version)
+* [Pasting Images into Content](#pasting-images-into-content)
+* [Build your own Markdown Monster Add-ins](#build-your-own-markdown-monster-add-ins)
+* [Embed Font-Awesome Icons](#embed-font-awesome-icons)
+* [Html Editing](#html-editing)
+
+[//]: # (TOC End)
+
+### Generate PDFs from your Markdown Topics
+Did you know you can generate a PDF file from your Markdown documents in Markdown Monster with just a couple of clicks? Use File -> Save as Pdf.
+
+### Distraction Free Mode
+Did you know you can use Distraction Free mode in Markdown Monster to zoom the editor? Click on the Zoom icon in the window toolbar on the top right or ALT-SHIFT-ENTER to toggle. Also configurable via `DistractionFreeModeHideOptions`. #markdown
+https://video.twimg.com/tweet_video/DUu5z0gVQAA0dGt.mp4
+
+### Viewer Mode
+Did you know you can zoom the HTML preview in Markdown Monster? Press F11 or click on the full screen icon in the upper right window corner to toggle full screen mode to read through long documents. #markdown
+https://video.twimg.com/tweet_video/DUgIJB_U0AMomcE.mp4
+
 ### Right Click To Edit Images, Links and Tables
 Did you know you can right click on Image tags to preview or edit the image in your favorite image editor? You can also right click on a table and open the table editor, on a link and edit and update or remove the link.
 
@@ -5,7 +35,17 @@ Did you know you can right click on Image tags to preview or edit the image in y
 Did you know that Github Gists support Markdown? You can use Gist to create one off HTML pages in Markdown. They're great for posting detailed bug reports or ideas that you can link on Twitter and other social media. Markdown Monster's Gist Integration Addin can also help with editing and updating and managing of Gists easily.
 
 ### 3 ways to Image Embedding
-Did you know you can get images into @MarkdownMonstr docs in 3 ways: Image dialog, paste image into doc, drag images from Explorer.
+Did you know there are a ton of ways to get images into @MarkdownMonstr: 
+
+1. Type in Markdown (obviously)
+2. Paste images from clipboard
+3. Embed with Image Dialog
+4. Drag from Explorer
+5. Drag from Folder Browser
+6. Use Screen Capture
+
+https://markdownmonster.west-wind.com/docs/_4s01ezteq.htm #markdown
+
 
 ### Changing Update Check Interval
 Markdown Monster is iterating very quickly. Don't want to see new version checks as frequently? Set the following configuration settings to check less frequently:

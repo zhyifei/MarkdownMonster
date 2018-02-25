@@ -59,10 +59,11 @@ var te = window.textEditor = {
         session.setUseWrapMode(editorSettings.wrapText);
         session.setOption("indentedSoftWrap", false);
 
-
-        editor.renderer.setShowGutter(editorSettings.showLineNumbers);
+        editor.renderer.setShowGutter(editorSettings.showLineNumbers);        
+        editor.setOption("scrollPastEnd", 0.7); // will have additional scroll  0.7% of screen height
         session.setTabSize(editorSettings.tabSpaces);
-
+        
+        
         session.setNewLineMode("windows");
 
         // disable certain hot keys in editor so we can handle them here        
@@ -81,7 +82,10 @@ var te = window.textEditor = {
             //    te.specialkey("f1");
             //},
             // save
-            "ctrl-s": function() { te.specialkey("ctrl-s"); },
+            "ctrl-s": function () {
+                te.mm.textbox.IsDirty(); // force document to update
+                te.specialkey("ctrl-s");
+            },
             // Open document
             "ctrl-o": function() {
                 te.editor.blur(); // HACK: avoid letter o insertion into document IE bug

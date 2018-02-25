@@ -29,7 +29,16 @@ namespace MarkdownMonster.Utilities
 
         static AssociatedIcons()
         {
-            DefaultIcon = new BitmapImage(new Uri("pack://application:,,,/MarkdownMonster;component/Assets/default_file.png"));            
+            try
+            {
+                DefaultIcon =
+                    new BitmapImage(
+                        new Uri("pack://application:,,,/MarkdownMonster;component/Assets/default_file.png"));
+            }
+            catch
+            {
+
+            }
         }
 
         /// <summary>
@@ -120,6 +129,7 @@ namespace MarkdownMonster.Utilities
             { "favicon.ico", "favicon" },
             { "folder.folder", "folder" }, // special case
             { "folder.openfolder", "folder-open" }, // special case
+            { "kavadocstopic.md", "kavadocs" },
             { "untitled","md" },
             
             // dev config files

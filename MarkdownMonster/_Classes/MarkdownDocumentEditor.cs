@@ -86,8 +86,18 @@ namespace MarkdownMonster
 
         public dynamic AceEditor { get; set; }
         public string EditorSyntax { get; set; }
-        public int InitialLineNumber
-        { get; set; }
+        public int InitialLineNumber { get; set; }
+
+
+        /// <summary>
+        /// Optional identifier that lets you specify what type of
+        /// document we're dealing with.
+        /// 
+        /// Can be used by Addins to create customer editors or handle
+        /// displaying the document a different way.
+        /// </summary>
+        public string Identifier { get; set; } = "MarkdownDocument";
+
 
         #region Loading And Initialization
         public MarkdownDocumentEditor(WebBrowser browser)
@@ -305,33 +315,35 @@ namespace MarkdownMonster
 
             if (action == "bold")
             {
-                html = "**" + input + "**";
+                html = wrapValue(input, "**", "**",stripSpaces: true);
                 cursorMovement = -2;
-            }            
+            }
             else if (action == "italic")
             {
-                html = "*" + input + "*";
-                cursorMovement = -1;
+                html = wrapValue(input, "*", "*", stripSpaces: true);
+                cursorMovement = -1;                
             }
             else if (action == "small")
             {
-                html = "<small>" + input + "</small>";
+                // :-( no markdown spec for this - use HTML
+                html = wrapValue(input, "<small>", "</small>", stripSpaces: true);
                 cursorMovement = -7;
             }
             else if (action == "underline")
             {
-                html = "<u>" + input + "</u>";
+                // :-( no markdown spec for this - use HTML
+                html = wrapValue(input, "<u>", "</u>", stripSpaces: true);                
                 cursorMovement = -4;
             }
             else if (action == "strikethrough")
             {
-                html = "~~" + input + "~~";
+                html = wrapValue(input, "~~", "~~", stripSpaces: true);
                 cursorMovement = -2;
             }
             else if (action == "inlinecode")
             {
-                html = "`" + input + "`";
-                cursorMovement = -1;
+                html = wrapValue(input, "`", "`", stripSpaces: true);
+                cursorMovement = -1;                
             }
             else if (action == "h1")
                 html = "# " + input;
@@ -343,6 +355,8 @@ namespace MarkdownMonster
                 html = "#### " + input;
             else if (action == "h5")
                 html = "##### " + input;
+            else if (action == "h6")
+                html = "###### " + input;
 
             else if (action == "quote")
             {
@@ -501,7 +515,7 @@ namespace MarkdownMonster
                         form.Code = clipText;
                 }
 
-                form.CodeLanguage = "csharp";
+                form.CodeLanguage = mmApp.Configuration.DefaultCodeSyntax;
                 bool? res = form.ShowDialog();
 
                 if (res != null && res.Value)
@@ -525,6 +539,33 @@ namespace MarkdownMonster
             result.Html = html;
 
             return result;
+        }
+
+        /// <summary>
+        /// Wraps a string with beginning and ending delimiters.
+        /// Fixes up accidental leading and trailing spaces.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="delim1"></param>
+        /// <param name="delim2"></param>
+        /// <param name="stripSpaces"></param>
+        /// <returns></returns>
+        public string wrapValue(string input, string delim1, string delim2, bool stripSpaces = true)
+        {
+            if (!stripSpaces)
+                return delim1 + input + delim2;
+
+            if (input.StartsWith(" "))
+                input = " " + delim1 + input.TrimStart();
+            else
+                input = delim1 + input;
+
+            if (input.EndsWith(" "))
+                input = input.TrimEnd() + delim2 + " ";
+            else
+                input += delim2;
+
+            return input;
         }
 
 
@@ -1022,14 +1063,11 @@ namespace MarkdownMonster
         {
             // nothing to do at the moment             
         }
-
         public void PreviewContextMenu(dynamic position)
         {
-            var ctm = Window.PreviewBrowser.WebBrowser.ContextMenu;            
-            ctm.Placement = System.Windows.Controls.Primitives.PlacementMode.MousePoint;
-            ctm.PlacementTarget = Window.PreviewBrowser.WebBrowser;
-            ctm.IsOpen = true;
+            Window.PreviewBrowser.ExecuteCommand("PreviewContextMenu");
         }
+
 
         #region Callback functions from the Html Editor
 
@@ -1221,23 +1259,7 @@ namespace MarkdownMonster
                 else if (key == "ctrl-shift-z")
                 {
                     Window.Model.Commands.RemoveMarkdownFormattingCommand.Execute(WebBrowser);
-                }
-                else if (key == "ctrl-shift-down")
-                {
-                    if (Window.PreviewBrowser.WebBrowser.IsVisible)
-                    {
-                        dynamic dom = Window.PreviewBrowser.WebBrowser.Document;
-                        dom.documentElement.scrollTop += 150;
-                    }
-                }
-                else if (key == "ctrl-shift-up")
-                {
-                    if (Window.PreviewBrowser.WebBrowser.IsVisible)
-                    {
-                        dynamic dom = Window.PreviewBrowser.WebBrowser.Document;
-                        dom.documentElement.scrollTop -= 150;
-                    }
-                }
+                }               
                 else if (key == "ctrl-tab")
                 {
                     var tab = Window.TabControl.SelectedItem;

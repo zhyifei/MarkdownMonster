@@ -40,6 +40,7 @@ using System.Windows.Media;
 using System.Windows.Threading;
 using FontAwesome.WPF;
 using MarkdownMonster.Windows;
+using MarkdownMonster.Windows.PreviewBrowser;
 using Westwind.Utilities;
 
 namespace MarkdownMonster.AddIns
@@ -65,6 +66,8 @@ namespace MarkdownMonster.AddIns
         /// Set after addins have completed load
         /// </summary>
         public bool AddinsLoadingComplete { get; set; }
+
+        public Action AddinsLoaded { get; set; }
 
         /// <summary>
         /// Add in manager error message  - set when loading addins
@@ -539,6 +542,35 @@ namespace MarkdownMonster.AddIns
                 }
             }
 
+        }
+
+        /// <summary>
+        /// Checks all addins for a custom Preview Browser control to be used 
+        /// for previewing documents. First match wins. Returns null if
+        /// no custom controls are found.
+        /// 
+        /// This allows overriding the default preview browser.       
+        /// </summary>
+        /// <returns></returns>
+        public IPreviewBrowser RaiseGetPreviewBrowserControl()
+        {
+            foreach (var addin in AddIns)
+            {
+                try
+                {
+                    var preview = addin?.GetPreviewBrowserUserControl();
+                    if (preview != null)
+                        return preview;
+                }
+                catch (Exception ex)
+                {
+                    string msg = addin.Id + "::AddIn::GetPreviewBrowserControl Error: " + ex.GetBaseException().Message;
+                    mmApp.Log(msg);
+                    mmApp.Model.Window.ShowStatus(msg,6000);
+                }
+            }
+
+            return null;
         }
 
         #endregion
