@@ -66,6 +66,8 @@ namespace MarkdownMonster
         /// <returns></returns>
         public static bool IsRegistered()
         {
+            _regType = RegTypes.Professional;
+            _unlocked = true;
             return true;
             lock (LockKey)
             {
