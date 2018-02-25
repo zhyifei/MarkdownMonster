@@ -58,21 +58,21 @@
         </ObjectDataProvider>
 
         <ContextMenu x:Key="TabItemContextMenu" Name="TabItemContextMenu">
-            <MenuItem Header="_Close Document" Command="{Binding DataContext.Commands.CloseActiveDocumentCommand}" />
-            <MenuItem Name="MenuCloseAllTabs" Header="Close All Documents" Command="{Binding DataContext.Commands.CloseAllDocumentsCommand}"/>
-            <MenuItem Name="MenuCloseAllButThisTab" Header="Close All But This Document"  Command="{Binding DataContext.Commands.CloseAllDocumentsCommand}" CommandParameter="AllBut" />
+            <MenuItem Header="关闭文档" Command="{Binding DataContext.Commands.CloseActiveDocumentCommand}" />
+            <MenuItem Name="MenuCloseAllTabs" Header="关闭所有文档" Command="{Binding DataContext.Commands.CloseAllDocumentsCommand}"/>
+            <MenuItem Name="MenuCloseAllButThisTab" Header="除此之外全部关闭"  Command="{Binding DataContext.Commands.CloseAllDocumentsCommand}" CommandParameter="AllBut" />
             <Separator/>
-            <MenuItem Name="ContextOpenInCommandWindow" Header="Open _Terminal" Click="Button_CommandWindow" />
-            <MenuItem Name="ContextOpenInFolder" Header="Open _Folder in Explorer" Click="Button_OpenExplorer" />
-            <MenuItem Name="ContextOpenInFolderBrowser" Header="Open Folder in Folder _Browser" Click="Button_OpenFolderBrowser" />
-            <MenuItem Name="ContextCommitToGit" Header="Commit and Push to _Git"
+            <MenuItem Name="ContextOpenInCommandWindow" Header="打开终端" Click="Button_CommandWindow" />
+            <MenuItem Name="ContextOpenInFolder" Header="在资源管理器中打开所在文件夹" Click="Button_OpenExplorer" />
+            <MenuItem Name="ContextOpenInFolderBrowser" Header="在文件夹浏览器中打开" Click="Button_OpenFolderBrowser" />
+            <MenuItem Name="ContextCommitToGit" Header="提交并推送到 _Git"
                       Command="{Binding DataContext.CommitToGitCommand}"   />
             <Separator/>
-            <MenuItem Name="ContextCopyFoldername" Header="Copy Foldername" Command="{Binding DataContext.Commands.CopyFolderToClipboardCommand}" />
+            <MenuItem Name="ContextCopyFoldername" Header="复制文件夹名称" Command="{Binding DataContext.Commands.CopyFolderToClipboardCommand}" />
         </ContextMenu>
         
         <ContextMenu x:Key="ContextMenuRecentFiles">
-            <MenuItem Header="Recent Files go here..."/>
+            <MenuItem Header="最近访问文件..."/>
         </ContextMenu>
     </Window.Resources>
     <Window.ContextMenu>
@@ -354,7 +354,7 @@
             </MenuItem>
 
             <!-- generated dynamically by command -->
-            <MenuItem Name="WindowMenu" Header="窗口(_W)" Command="{Binding Commands.WindowMenuCommand}" />
+            <MenuItem Name="MainMenuWindow" Header="窗口(_W)" Command="{Binding Commands.WindowMenuCommand}" />
 
 
             <MenuItem Header="帮助(_H)">
@@ -602,8 +602,8 @@
                             <TextBlock Text=" Files and Folder " />
                         </StackPanel>
                     </TabItem.Header>-->
-                    <localwindows:FolderBrowerSidebar x:Name="FolderBrowser">
-                    </localwindows:FolderBrowerSidebar>
+                    <localwindows:FolderBrowerSidebar x:Name="FolderBrowser"/>
+
                 </TabItem>
             </controls:MetroTabControl>
                 
@@ -757,7 +757,7 @@
                 <fa:FontAwesome Name="StatusIcon" Icon="Circle" Foreground="Green"/>
             </StatusBarItem>
             <StatusBarItem Grid.Column="1">
-                <TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">Ready</TextBlock>
+                <TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">就绪</TextBlock>
             </StatusBarItem>
             <Separator Grid.Column="2" />
 
@@ -773,11 +773,11 @@
                           Text="{Binding Configuration.EditorZoomLevel,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,StringFormat='0\\%'}">
                     <ComboBox.ToolTip>
                         <TextBlock>
-                            Editor font size zoom level.
+                            编辑的字体尺寸缩放级别
                             <LineBreak /> 
-                            Also use the mouse wheel or ctrl-+ and ctrl-- to zoom.
+                            也可以用鼠标滚轮或者Ctrl-+ 和 Ctrl-- 进行缩放。
                             <LineBreak />
-                            Double click to reset to 100%.
+                            双击重置为100%
                         </TextBlock>
                     </ComboBox.ToolTip>
                     <ComboBoxItem>20</ComboBoxItem>
@@ -796,11 +796,11 @@
           
             <StatusBarItem Grid.Column="5" Margin="8,0,8,0">
                 <TextBlock  Name="StatusEncoding" x:FieldModifier="public" HorizontalAlignment="Left"
-                            ToolTip="Document Encoding"></TextBlock>
+                            ToolTip="文档编码"></TextBlock>
             </StatusBarItem>
             <StatusBarItem Grid.Column="6">
                 <ComboBox  HorizontalAlignment="Right"  
-                           ToolTip="Registered Markdown Parsers" Width="{Binding MarkdownParserColumnWidth}"
+                           ToolTip="注册Markdown解析器" Width="{Binding MarkdownParserColumnWidth}"
                            SelectedItem="{Binding Configuration.MarkdownOptions.MarkdownParserName}" 
                            IsSynchronizedWithCurrentItem="True" 
                            ItemsSource="{Binding MarkdownParserNames}"
@@ -809,7 +809,7 @@
 
             </StatusBarItem>
             <StatusBarItem Grid.Column="7">
-                <ComboBox  HorizontalAlignment="Right"  Width="70" ToolTip="Application Themes"  
+                <ComboBox  HorizontalAlignment="Right"  Width="70" ToolTip="程序主题"  
                            Name="ComboBoxAppTheme"
                            IsSynchronizedWithCurrentItem="True" Margin="0,0,3,0"    
                            SelectedValue="{Binding Configuration.ApplicationTheme}"   
@@ -820,7 +820,7 @@
             </StatusBarItem>
             <StatusBarItem Grid.Column="8">
                 
-                <ComboBox  HorizontalAlignment="Right"  Width="125" ToolTip="Editor Themes"
+                <ComboBox  HorizontalAlignment="Right"  Width="125" ToolTip="编辑主题"
                            SelectedItem="{Binding Configuration.EditorTheme}"
                            IsSynchronizedWithCurrentItem="True"                            
                            ItemsSource="{Binding EditorThemeNames}"
@@ -829,7 +829,7 @@
             </StatusBarItem>
             <StatusBarItem Grid.Column="9">
                 <ComboBox  HorizontalAlignment="Right"  Width="125"
-                           ToolTip="Preview rendering Themes"
+                           ToolTip="预览呈现主题"
                            SelectedItem="{Binding Configuration.RenderTheme}" 
                            IsSynchronizedWithCurrentItem="True" 
                            ItemsSource="{Binding RenderThemeNames}"
@@ -838,7 +838,7 @@
 
             </StatusBarItem>
             <StatusBarItem Grid.Column="10">
-                <ComboBox  HorizontalAlignment="Right"  Width="44" ToolTip="Preview sync mode"  
+                <ComboBox  HorizontalAlignment="Right"  Width="44" ToolTip="预览同步模式"  
                            Name="ComboBoxPreviewSyncModes"
                            IsSynchronizedWithCurrentItem="True" Margin="0,0,3,0"    
                            SelectedValue="{Binding Configuration.PreviewSyncMode}" 
@@ -853,7 +853,7 @@
 
             <StatusBarItem Grid.Column="11">
                 <Button Name="ButtonStatusEncrypted" Margin="0,0,15,0" Click="Button_Handler" 
-                    ToolTip="Encrypted"
+                    ToolTip="加密"
                     fa:Awesome.Content="Lock" 
                     Visibility="{Binding ActiveDocument.IsEncrypted, Converter={StaticResource BooleanToVisibilityConverter}}"
                     BorderThickness="0"                     

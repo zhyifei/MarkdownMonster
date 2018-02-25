@@ -295,6 +295,7 @@ namespace MarkdownMonster.Windows
         {
             var data = new ObservableCollection<ObservableCollection<CellContent>>();
             var lines = StringUtils.GetLines(tableMarkdown.Trim());
+            int headerCount = 0;
             foreach (var row in lines)
             {
                 if (row.Length == 0)
@@ -308,6 +309,7 @@ namespace MarkdownMonster.Windows
                         continue;
 
                     var headerCols = row.TrimEnd().Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries);
+                    headerCount = headerCols.Length;
                     for (int i = 0; i < headerCols.Length; i++)
                     {
                         var sepLine = headerCols[i].Trim();
@@ -319,11 +321,19 @@ namespace MarkdownMonster.Windows
 
                     continue;
                 }
-
-                var cols = row.TrimEnd().Trim('|').Split('|');
+                var rowContent = row.TrimEnd();
+                if (rowContent[0]!='|'||rowContent.Last()!='|')
+                {
+                    throw new Exception("表格格式错误，内容与列数不匹配！");
+                }
+                var cols = rowContent.Split('|');
+                
                 var columnData = new ObservableCollection<CellContent>();
-                foreach (var col in cols)
-                    columnData.Add(new CellContent(col.Trim()));
+                for (int i = 1; i < cols.Length-1; i++)
+                {
+                    columnData.Add(new CellContent(cols[i].Trim()));
+                }
+                    
 
                 data.Add(columnData);
             }

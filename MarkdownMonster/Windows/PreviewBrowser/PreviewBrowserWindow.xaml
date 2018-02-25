@@ -22,8 +22,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0"  Name="PreviewBrowserContainer">
+        </Grid>
 
-        <WebBrowser Name="Browser">
+        <!--<WebBrowser Name="Browser">
             <WebBrowser.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="在外部浏览器中显示" Command="{Binding ViewInExternalBrowserCommand}" />
@@ -37,7 +39,7 @@
                               IsChecked="{Binding IsPreviewBrowserVisible}" />
                 </ContextMenu>
             </WebBrowser.ContextMenu>
-        </WebBrowser>
+        </WebBrowser>-->
 
         <StatusBar  Grid.Row ="1"  Margin="0,0,0,0" VerticalAlignment="Bottom" 
                     HorizontalAlignment="Stretch">

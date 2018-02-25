@@ -95,24 +95,24 @@ namespace MarkdownMonster
                 var fd = new OpenFileDialog
                 {
                     DefaultExt = ".md",
-                    Filter = "Markdown files (*.md,*.markdown,*.mdcrypt)|*.md;*.markdown;*.mdcrypt|" +
-                             "Html files (*.htm,*.html)|*.htm;*.html|" +
-                             "Javascript files (*.js)|*.js|" +
-                             "Typescript files (*.ts)|*.ts|" +
-                             "Json files (*.json)|*.json|" +
-                             "Css files (*.css)|*.css|" +
-                             "Xml files (*.xml,*.config)|*.xml;*.config|" +
-                             "C# files (*.cs)|*.cs|" +
-                             "C# Razor files (*.cshtml)|*.cshtml|" +
-                             "Foxpro files (*.prg)|*.prg|" +
-                             "Powershell files (*.ps1)|*.ps1|" +
-                             "Php files (*.php)|*.php|" +
-                             "Python files (*.py)|*.py|" +
-                             "All files (*.*)|*.*",
+                    Filter = "Markdown文件 (*.md,*.markdown,*.mdcrypt)|*.md;*.markdown;*.mdcrypt|" +
+                             "Html文件 (*.htm,*.html)|*.htm;*.html|" +
+                             "Javascript文件 (*.js)|*.js|" +
+                             "Typescript文件 (*.ts)|*.ts|" +
+                             "Json文件 (*.json)|*.json|" +
+                             "CSS文件 (*.css)|*.css|" +
+                             "Xml文件 (*.xml,*.config)|*.xml;*.config|" +
+                             "C#文件 (*.cs)|*.cs|" +
+                             "C# Razor文件 (*.cshtml)|*.cshtml|" +
+                             "Foxpro文件 (*.prg)|*.prg|" +
+                             "Powershell脚本 (*.ps1)|*.ps1|" +
+                             "PHP文件 (*.php)|*.php|" +
+                             "Python文件 (*.py)|*.py|" +
+                             "所有文件 (*.*)|*.*",
                     CheckFileExists = true,
                     RestoreDirectory = true,
                     Multiselect = true,
-                    Title = "Open Markdown File"
+                    Title = "打开Markdown文件"
                 };
 
                 if (!string.IsNullOrEmpty(mmApp.Configuration.LastFolder))
@@ -125,10 +125,10 @@ namespace MarkdownMonster
                 }
                 catch (Exception ex)
                 {
-                    mmApp.Log("Unable to open file.", ex);
+                    mmApp.Log("无法打开该文件。", ex);
                     MessageBox.Show(
-                        $@"Unable to open file:\r\n\r\n" + ex.Message,
-                        "An error occurred trying to open a file",
+                        $@"无法打开文件:\r\n\r\n" + ex.Message,
+                        "试图打开文件时候发生错误。",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                     return;
@@ -227,10 +227,10 @@ namespace MarkdownMonster
 
                 var mdcryptExt = string.Empty;
                 if (isEncrypted)
-                    mdcryptExt = "Secure Markdown files (*.mdcrypt)|*.mdcrypt|";
+                    mdcryptExt = "Markdown加密文件 (*.mdcrypt)|*.mdcrypt|";
 
                 sd.Filter =
-                    $"{mdcryptExt}Markdown files (*.md)|*.md|Markdown files (*.markdown)|*.markdown|All files (*.*)|*.*";
+                    $"{mdcryptExt}Markdown文件 (*.md)|*.md|Markdown 文件 (*.markdown)|*.markdown|所有文件 (*.*)|*.*";
 
                 bool? result = null;
                 try
@@ -239,10 +239,10 @@ namespace MarkdownMonster
                 }
                 catch (Exception ex)
                 {
-                    mmApp.Log("Unable to save file: " + doc.MarkdownDocument.Filename, ex);
+                    mmApp.Log("无法保存文件: " + doc.MarkdownDocument.Filename, ex);
                     MessageBox.Show(
-                        $@"Unable to open file:\r\n\r\n" + ex.Message,
-                        "An error occurred trying to open a file",
+                        $@"无法保存文件:\r\n\r\n" + ex.Message,
+                        "保存文件时候发生错误。",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                 }
@@ -264,8 +264,8 @@ namespace MarkdownMonster
                     if (!doc.SaveDocument())
                     {
                         MessageBox.Show(Model.Window,
-                            $"{sd.FileName}\r\n\r\nThis document can't be saved in this location. The file is either locked or you don't have permissions to save it. Please choose another location to save the file.",
-                            "Unable to save Document", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            $"{sd.FileName}\r\n\r\n该文档无法保存到指定位置。文件受保护或者你没有保存权限。请换一个位置保存。",
+                            "无法保存文档", MessageBoxButton.OK, MessageBoxImage.Warning);
                         SaveAsCommand.Execute(tab);
                         return;
                     }
@@ -349,7 +349,7 @@ namespace MarkdownMonster
                 SaveFileDialog sd = new SaveFileDialog
                 {
                     Filter =
-                        "Html files (Html only) (*.html)|*.html|Html files (Html and dependencies in a folder)|*.html",
+                        "Html文件 (仅Html) (*.html)|*.html|Html文件 (Html及目录下的依赖文件)|*.html",
                     FilterIndex = 1,
                     InitialDirectory = folder,
                     FileName = Path.ChangeExtension(doc.MarkdownDocument.Filename, "html"),
@@ -366,10 +366,10 @@ namespace MarkdownMonster
                 }
                 catch (Exception ex)
                 {
-                    mmApp.Log("Unable to save html file: " + doc.MarkdownDocument.Filename, ex);
+                    mmApp.Log("无法保存Html文件: " + doc.MarkdownDocument.Filename, ex);
                     MessageBox.Show(
-                        $@"Unable to open file:\r\n\r\n" + ex.Message,
-                        "An error occurred trying to open a file",
+                        $@"无法保存Html文件:\r\n\r\n" + ex.Message,
+                        "保存文件时候发生错误",
                         MessageBoxButton.OK,
                         MessageBoxImage.Error);
                 }
@@ -384,19 +384,19 @@ namespace MarkdownMonster
                         if (!doc.MarkdownDocument.WriteFile(sd.FileName, html))
                         {
                             MessageBox.Show(Model.Window,
-                                $"{sd.FileName}\r\n\r\nThis document can't be saved in this location. The file is either locked or you don't have permissions to save it. Please choose another location to save the file.",
-                                "Unable to save Document", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                $"{sd.FileName}\r\n\r\n该文档无法保存到指定位置。文件受保护或者你没有保存权限。请换一个位置保存。",
+                                "无法保存文档", MessageBoxButton.OK, MessageBoxImage.Warning);
                             SaveAsHtmlCommand.Execute(null);
                             return;
                         }
                     }
                     else
                     {
-                        string msg = @"This feature is not available yet.
+                        string msg = @"该功能目前不可用。
 
-For now, you can use 'View in Web Browser' to view the document in your favorite Web Browser and use 'Save As...' to save the Html document with all CSS and Image dependencies.
+当前, 你可以通过 '在浏览器中查看' ，并使用浏览器的 '另存为...' 来保存Html文档包括依赖的CSS和图片。
 
-Do you want to View in Browser now?
+是否要在浏览器中打开?
 ";
                         var mbResult = MessageBox.Show(msg,
                             mmApp.ApplicationName,
@@ -481,7 +481,7 @@ Do you want to View in Browser now?
                 if (!editor.RemoveMarkdownFormatting())
                 {
                     Model.Window.SetStatusIcon(FontAwesome.WPF.FontAwesomeIcon.Warning, System.Windows.Media.Colors.Red);
-                    Model.Window.ShowStatus("Didn't remove formatting. No selection or document is not a Markdown document.",6000);
+                    Model.Window.ShowStatus("无法清除样式。未选择文档或者文档非Markdown文档。",6000);
                 }
             }, (p, c) => true);
         }
@@ -712,8 +712,8 @@ Do you want to View in Browser now?
                     Model.Window.TabControl.Items.Remove(tab);
             }, null)
             {
-                Caption = "_Close Document",
-                ToolTip = "Closes the active tab and asks to save the document."
+                Caption = "关闭文档(_C)",
+                ToolTip = "关闭当前标签页，并询问是否保存。"
             };
         }
 
@@ -836,12 +836,12 @@ Do you want to View in Browser now?
                 try
                 {
                     Clipboard.SetText(path);
-                    Model.Window.ShowStatus($"Path copied to clipboard: {path}", 6000);
+                    Model.Window.ShowStatus($"路径已复制到剪贴板: {path}", 6000);
                 }
                 catch
                 {
                     Model.Window.SetStatusIcon(FontAwesomeIcon.Warning, Colors.Red);
-                    Model.Window.ShowStatus("Clipboard failure: Failed copy foldername to clipboard.", 6000);
+                    Model.Window.ShowStatus("剪贴板失败: 复制文件夹名称到剪贴板失败。", 6000);
                 }
             }, (p, c) => true);
         }

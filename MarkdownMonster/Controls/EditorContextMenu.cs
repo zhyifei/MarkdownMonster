@@ -102,7 +102,7 @@ namespace MarkdownMonster
 
             var mi2 = new MenuItem()
             {
-                Header = "Add to dictionary",
+                Header = "添加到字典",
                 HorizontalContentAlignment = HorizontalAlignment.Right
             };
             mi2.Click += (o, args) => model.ActiveEditor.AceEditor.addWordSpelling(((dynamic)range).misspelled);
@@ -119,19 +119,19 @@ namespace MarkdownMonster
             var selText = Model.ActiveEditor?.AceEditor?.getselection(false);
             var model = Model;
 
-            var miCut = new MenuItem { Header = "Cut", InputGestureText="ctrl-x" };
+            var miCut = new MenuItem { Header = "剪切", InputGestureText="Ctrl+X" };
             miCut.Click += (o, args) => model.ActiveEditor.SetSelection("");
             ContextMenu.Items.Add(miCut);
 
-            var miCopy = new MenuItem() { Header = "Copy", InputGestureText="ctrl-c" };
+            var miCopy = new MenuItem() { Header = "复制", InputGestureText="Ctrl+C" };
             miCopy.Click += (o, args) => Clipboard.SetText(selText);
             ContextMenu.Items.Add(miCopy);
 
-            var miCopyHtml = new MenuItem() { Header = "Copy As Html", InputGestureText="ctrl-shift-c" };
+            var miCopyHtml = new MenuItem() { Header = "复制为Html格式", InputGestureText="Ctrl+Shift+C" };
             miCopyHtml.Command = Model.CopyAsHtmlCommand;
             ContextMenu.Items.Add(miCopyHtml);
-
-            var miPaste = new MenuItem() { Header = "Paste", InputGestureText="ctrl-v"};
+            
+            var miPaste = new MenuItem() { Header = "粘贴", InputGestureText="Ctrl+V"};
             miPaste.Click += (o, args) => model.ActiveEditor?.SetSelection(Clipboard.GetText());
             ContextMenu.Items.Add(miPaste);
 
@@ -149,8 +149,8 @@ namespace MarkdownMonster
                     ContextMenu.Items.Add(new Separator());
                     var miRemoveFormatting = new MenuItem
                     {
-                        Header = "Remove Markdown Formatting",
-                        InputGestureText = "ctrl-shift-z"
+                        Header = "清除Markdown格式",
+                        InputGestureText = "Ctrl+Shift+Z"
                     };
                     miRemoveFormatting.Command = Model.Commands.RemoveMarkdownFormattingCommand;
                     ContextMenu.Items.Add(miRemoveFormatting);
@@ -204,7 +204,7 @@ namespace MarkdownMonster
                     {
                         var mi2 = new MenuItem
                         {
-                            Header = "Edit Hyperlink"
+                            Header = "编辑超链接"
                         };
                         mi2.Click += (o, args) =>
                         {
@@ -216,7 +216,7 @@ namespace MarkdownMonster
 
                         var mi = new MenuItem
                         {
-                            Header = "Remove Hyperlink"
+                            Header = "删除超链接"
                         };
                         mi.Click += (o, args) =>
                         {
@@ -249,7 +249,7 @@ namespace MarkdownMonster
                     {
                         var mi = new MenuItem
                         {
-                            Header = "Edit in Image Editor"
+                            Header = "在图片编辑器上编辑"
                         };
                         mi.Click += (o, args) =>
                         {
@@ -262,7 +262,7 @@ namespace MarkdownMonster
 
                         var mi2 = new MenuItem
                         {
-                            Header = "Edit Image Link"
+                            Header = "编辑图片链接"
                         };
                         mi2.Click += (o, args) =>
                         {
@@ -292,7 +292,7 @@ namespace MarkdownMonster
             {
                 var mi = new MenuItem
                 {
-                    Header = "Edit Table"
+                    Header = "编辑表格"
                 };
                 mi.Click += (o, args) =>
                 {
@@ -356,7 +356,7 @@ namespace MarkdownMonster
             {
                 var mi = new MenuItem
                 {
-                    Header = "Edit Table"
+                    Header = "编辑表格"
                 };
                 mi.Click += (o, args) =>
                 {
