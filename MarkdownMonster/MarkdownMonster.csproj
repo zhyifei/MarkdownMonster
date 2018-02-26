@@ -583,6 +583,7 @@
     <Content Include="Editor\table-editor.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="MarkdownMonster.ico" />
     <Content Include="PreviewThemes\Westwind\Theme.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -855,7 +856,6 @@
     <Content Include="Editor\editor.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="MarkdownMonster.ico" />
     <Content Include="PreviewThemes\Blackout\Theme.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
